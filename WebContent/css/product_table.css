@@ -1,0 +1,63 @@
+/*Style for the product table page*/
+
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+    background: #fceed1
+}
+
+body{
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+}
+
+.container{
+    background-color:rgb(170, 57, 57); 
+    margin:0;
+    position: fixed;
+    width:100%;
+}
+
+h2 {
+    background-color: inherit;
+    color: white;
+}
+
+.table-products {
+    padding-top: 80px;
+    border-spacing: 100px 40px;
+    margin: auto;
+}
+
+td {
+    vertical-align: top;
+    width: 205px;
+    height: 350px;
+}
+
+.table-products a{
+    background-color: inherit;
+}
+
+.table-products img {
+    width: 205px;
+    height: 250px;
+    border-top-left-radius: 2%;
+    border-top-right-radius: 2%;
+}
+
+.table-item-text {
+    padding-bottom: 0 5px 5px 5px;
+    text-align: center;
+    background-color: rgb(170, 57, 57);
+    transition: .5s;
+    color: white;
+    border-radius: 5px;
+}
+
+.table-products td:hover .table-item-text{
+    transform:scale(1.2);
+}

@@ -1,0 +1,116 @@
+.overall {
+    background: #fceed1;
+    padding: 20px;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0%;
+    margin-bottom: 5%;
+    width: auto;
+    display: inline-block;
+    text-align: left;
+}
+
+h1 {
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+img {
+    display: block;
+    overflow: hidden;
+}
+
+input, label {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+label {
+    display: inline-block;
+    width: 200px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border-left: 35px;
+    border-right: 35px;
+    border-top: 50px;
+    border-bottom: 50px;
+    border-style: solid;
+    border-color: transparent;
+}
+
+.leftedge {
+    border-left: 0px;
+    border-right: 35px;
+}
+
+.rightedge {
+    border-left: 35px;
+    border-right: 0px;
+}
+
+.button {
+    margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color:#D6D2DE;
+    text-align: center;
+}
+
+.center {
+    display: block;
+    text-align: center;
+}
+
+.errormessage {
+    padding-left: 210px;
+    font-size: 10px;
+    color: red;
+}
+
+.helptext {
+    font-size: 10px;
+}
+
+.orderconflabel {
+    padding-left: 25px;
+    font-weight: bold;
+}
+
+.total {
+    display: block;
+    text-align: right;
+}
+
+.lefttotal {
+    display: block;
+    text-align: left;
+}
+
+.totalline {
+    display: inline;
+}
+
+#formnote {
+    color: red;
+}
+
+#shippingmethodoptions {
+    padding-left: 200px;
+}
+

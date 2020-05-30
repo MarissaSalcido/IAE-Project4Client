@@ -1,0 +1,122 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  background-color: #fceed1;
+}
+
+  /* Start of navigation design */
+.menu ul {
+    display: inline-flex;
+    margin: 50px;
+}
+
+.menu ul li {
+    list-style: none;
+    margin: 0 20px;
+    color: #34205b;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logo img {
+    width: 40px;
+    margin-top: -7px;
+    margin-right: 0px;
+    margin-left: 100px;
+}
+
+.menu ul li.title {
+    color: #34205b;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 615px;
+    margin-left: 0px;
+}
+
+.menu ul li.active {
+    color: rgb(211, 31, 31);
+}
+  /* End of navigation design */
+
+  /* Start of containers design */
+.product_id {
+  padding: 40px 0px 0px 480px;
+}
+
+  /* Image and product info containers */
+.img_container {
+  display: inline-block;
+  position: relative;
+  width: auto;
+  height: 460px;
+  left: -150px;
+}
+
+  /* Start of product container design */
+.product_container {
+  display: inline-block;
+  font-family: 'Roboto', "sans-seriff";
+  padding-top: 250px;
+  margin-right: -50px;
+  width:40%;
+  height: auto;
+}
+
+.info_fix {
+  position: relative;
+  top: -170px;
+  left: -90px;
+  height: 43vh;
+  
+}
+
+.img_container img {
+  float: right;
+  height: 460px;
+  width: auto;
+  padding-left: 265px;
+}
+  /* End of product container design */
+
+  /* Modification of product information */
+.product_container h3 {
+  text-transform: uppercase;
+}
+
+.product_code {
+  margin-top: 5px;
+}
+
+.aval {
+  margin-top: -7px;
+  text-decoration: none;
+}
+
+.note {
+  position: relative;
+  top: 25px;
+  text-transform: uppercase;
+}
+
+.price {
+  font-size: 20px;
+  color: red;
+}
+
+#iframeForm {
+  width: 90%;
+  height: 500px;
+}
+
+#iframeDiv {
+  display: block;
+  text-align: center;
+  margin-bottom: 50px;
+}
+ /* Ending Modification of product information */
+ 
+.addToCartForm{
+	margin: 0 0 50px 110px;
+}

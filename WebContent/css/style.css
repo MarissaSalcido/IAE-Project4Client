@@ -1,0 +1,265 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto';
+    font-size: 19px;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: #fceed1;
+}
+
+.menu ul {
+    display: inline-flex;
+    margin: 50px;
+}
+
+.menu ul li {
+    list-style: none;
+    margin: 0 20px;
+    color: #34205b;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logo img {
+    width: 40px;
+    margin-top: -7px;
+    margin-right: 0px;
+    margin-left: 100px;
+}
+
+.menu ul li.title {
+    color: #34205b;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 615px;
+    margin-left: 0px;
+}
+
+.menu ul li.active {
+    color: rgb(211, 31, 31);
+}
+
+.banner {
+    width: 80%;
+    height: 70%;
+    top: 25%;
+    left: 130px;
+    position: absolute;
+    color: #34205b;
+}
+
+.text {
+    width: 50%;
+    float: left;
+}
+
+.text h1 {
+    font-size: 45px;
+    width: 640px;
+    position: relative;
+    margin-left: 40px;
+}
+
+.text p {
+    width: 660px;
+    font-size: 20px;
+    margin: 30px 0 30px 40px;
+    line-height: 30px;
+}
+
+.picture {
+    width: 50%;
+    float: right;
+}
+
+.picture img {
+    width: 50%;
+    margin-top: -20px;
+    padding-left: 200px;   
+}
+
+.catalogbtn {
+    margin-left: 40px;
+    display: inline-flex;
+}
+
+small {
+    margin: auto 20px;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 1.25px;
+    color: rgb(211, 31, 31);
+    border:2.5px solid rgb(211, 31, 31);
+    border-radius: 10px;
+    padding: 8px 8px;
+}
+
+.background {
+    background-image: url('/images/texture5.jpg');
+    width: 100%;
+    height: 300px;
+    border: 2px solid;
+    opacity: 0.3;
+}
+
+.head h1{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: -260px;
+    opacity: 1;
+    color: rgb(0, 0, 0) !important;
+
+}
+
+.subhead p {
+    text-align: center;
+    font-size: 22px;
+    line-height: 30px;
+    opacity: 1;
+    font-weight: 450;
+    color: rgb(0, 0, 0) !important;
+}
+
+.subheader h2 {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 60px;
+    opacity: 1;
+    color: rgb(0, 0, 0) !important;
+}
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+  }
+
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+
+.container1 img {
+height:16%;
+width:16%;
+margin-left: 350px;
+} 
+   
+.container1 h4{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+    margin-top: -210px;
+}
+
+.container1 p{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+}
+   
+.container2 img {
+    height:16%;
+    width:16%;
+    margin-left: 350px;
+    margin-top: 75px;
+} 
+   
+.container2 h4{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+    margin-top: -210px;
+}
+
+.container2 p{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+}
+
+.container3 img {
+    height:16%;
+    width:16%;
+    margin-left: 350px;
+    margin-top: 75px;
+} 
+   
+.container3 h4{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+    margin-top: -210px;
+}
+
+.container3 p{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+}
+
+.container4 img {
+    height:16%;
+    width:16%;
+    margin-left: 350px;
+    margin-top: 75px;
+} 
+   
+.container4 h4{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+    margin-top: -210px;
+}
+
+.container4 p{
+    width:100%;
+    height:auto;
+    padding:1%;
+    margin-left: 650px;
+}
+
+.seeProducts {
+	background: #fceed1;
+    margin: auto 20px;
+    cursor: pointer;
+    font-size: 15px;
+    letter-spacing: 1.25px;
+    color: rgb(211, 31, 31);
+    border:2.5px solid rgb(211, 31, 31);
+    border-radius: 10px;
+    padding: 8px 8px;
+    margin-top: 50px;
+    margin-left: 40px;
+}
+
+/* additional styling MS - 5:34pm */
+.cartNav{
+ 	font-weight: 600;
+ }
+ .formInputs{
+	border: 0;
+	background: none;
+	cursor: pointer;
+	color: #34205b;
+}
+
