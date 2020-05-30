@@ -75,7 +75,7 @@ public class RESTClientServlet extends HttpServlet {
         );
 
         String jsonResponse2 =
-                target.path("tomerest").path("books").path("1").
+                target.path("tomerest").path("books").path(request.getParameter("1")).
                         request(). //send a request
                         accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                         get(String.class);
