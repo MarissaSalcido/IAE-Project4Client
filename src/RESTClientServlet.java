@@ -17,7 +17,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -38,8 +37,10 @@ public class RESTClientServlet extends HttpServlet {
         Client client = ClientBuilder.newClient(config);
 
         WebTarget target = client.target(getBaseURI());
-
-
+        
+        //LOGIC STILL NEEDS TO BE IMPLEMENTED FOR THIS FILE INCOMPLETE RIGHT NOW
+        
+        // IF ID PARAMETER IS NULL I.E "/restcli" THEN RETURN ALL BOOKS 
         String jsonResponse =
                 target.path("tomerest").path("books").
                         request(). //send a request
@@ -51,44 +52,20 @@ public class RESTClientServlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library
 
         List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-
-        PrintWriter out = response.getWriter();
-
-        out.print("<html><head>" +
-                "<title>REST Client</title>" +
-                "</head>" +
-                "<body>" +
-                "<h2>REST response for GET call - /tomerest/books</h2>" +
-                "<ul>"
-        );
-
-        for(Book book : bookList) {
-            out.print("<li>");
-            out.print(book.getSummary() + " - " + book.getDescription());
-            out.print("</li>");
-        }
-        out.print("</ul>");
-
-        out.print(
-                "<h2>REST response for GET call - /tomerest/books/1</h2>" +
-                "<ul>"
-        );
-
+        //return bookList
+        
+        //ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
         String jsonResponse2 =
-                target.path("tomerest").path("books").path(request.getParameter("1")).
+                target.path("tomerest").path("books").path(request.getParameter("id")).
                         request(). //send a request
                         accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                         get(String.class);
 
         Book book = objectMapper.readValue(jsonResponse2, Book.class);
-
-        out.print("<li>");
-        out.print(book.getSummary() + " - " + book.getDescription());
-        out.print("</li>");
-
-        out.print("</ul></body></html>");
-
-
+        //return book
+        
+        //NEED TO IMPLEMENT LOGIC FOR OTHER GET REQUESTS FOR DISPLAYING BILLING ETC
+        
     }
 
     private static URI getBaseURI() {
