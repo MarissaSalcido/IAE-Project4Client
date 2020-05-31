@@ -38,31 +38,32 @@ public class RESTClientServlet extends HttpServlet {
 
         WebTarget target = client.target(getBaseURI());
         
-        //LOGIC STILL NEEDS TO BE IMPLEMENTED FOR THIS FILE INCOMPLETE RIGHT NOW
-        
-        // IF ID PARAMETER IS NULL I.E "/restcli" THEN RETURN ALL BOOKS 
-        String jsonResponse =
-                target.path("tomerest").path("books").
-                        request(). //send a request
-                        accept(MediaType.APPLICATION_JSON). //specify the media type of the response
-                        get(String.class); // use the get method and return the response as a string
-
-        System.out.println(jsonResponse);
-
         ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library
+        if (request.getParameter("id") == null) { //will also need to check for billing params later
+        	// IF ID PARAMETER IS NULL I.E "/restcli" THEN RETURN ALL BOOKS 
+            String jsonResponse =
+                    target.path("tomerest").path("books").
+                            request(). //send a request
+                            accept(MediaType.APPLICATION_JSON). //specify the media type of the response
+                            get(String.class); // use the get method and return the response as a string
 
-        List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-        //return bookList
+            System.out.println(jsonResponse);
+
+            List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
+            
+        }
+        else if (request.getParameter("id") != null) {
+        	//ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
+            String jsonResponse2 =
+                    target.path("tomerest").path("books").path(request.getParameter("id")).
+                            request(). //send a request
+                            accept(MediaType.APPLICATION_JSON). //specify the media type of the response
+                            get(String.class);
+
+            Book book = objectMapper.readValue(jsonResponse2, Book.class);
+            
+        }
         
-        //ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
-        String jsonResponse2 =
-                target.path("tomerest").path("books").path(request.getParameter("id")).
-                        request(). //send a request
-                        accept(MediaType.APPLICATION_JSON). //specify the media type of the response
-                        get(String.class);
-
-        Book book = objectMapper.readValue(jsonResponse2, Book.class);
-        //return book
         
         //NEED TO IMPLEMENT LOGIC FOR OTHER GET REQUESTS FOR DISPLAYING BILLING ETC
         
