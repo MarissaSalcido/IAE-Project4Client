@@ -18,8 +18,11 @@
 	import javax.ws.rs.core.UriBuilder;
 	import java.io.IOException;
 	import java.net.URI;
-	import java.util.List;
-	import javax.servlet.annotation.WebServlet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/catalog")
 public class CatalogServlet extends HttpServlet{
@@ -42,10 +45,13 @@ public class CatalogServlet extends HttpServlet{
                             get(String.class); // use the get method and return the response as a string
 
             System.out.println(jsonResponse);
-
+            
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-            System.out.println(bookList);
-	        
+            Map<String,Book> bookMap = new HashMap<String,Book>();  
+            for (int i = 0; i < bookList.size(); i++) {
+            	bookMap.put(bookList.get(i).getId(), bookList.get(i));  
+            }
+	        request.setAttribute("bookList", bookMap);
 	        
 	    }
 
