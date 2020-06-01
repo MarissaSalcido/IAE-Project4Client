@@ -17,6 +17,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -38,6 +39,8 @@ public class RESTClientServlet extends HttpServlet {
 
         WebTarget target = client.target(getBaseURI());
         
+        PrintWriter out = response.getWriter();
+        
         ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library
         if (request.getParameter("id") == null) { //will also need to check for billing params later
         	// IF ID PARAMETER IS NULL I.E "/restcli" THEN RETURN ALL BOOKS 
@@ -50,7 +53,7 @@ public class RESTClientServlet extends HttpServlet {
             System.out.println(jsonResponse);
 
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-            
+            out.print(bookList);
         }
         else if (request.getParameter("id") != null) {
         	//ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
@@ -61,7 +64,7 @@ public class RESTClientServlet extends HttpServlet {
                             get(String.class);
 
             Book book = objectMapper.readValue(jsonResponse2, Book.class);
-            
+            out.print(book);
         }
         
         
