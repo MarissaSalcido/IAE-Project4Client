@@ -5,8 +5,8 @@
     <head>
         <meta charset="ISO-8859-1">
         <title>Catalog</title>
-        <link rel="stylesheet" href="../css/product_table.css">
-        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="css/product_table.css">
+        <link rel="stylesheet" href="css/style.css">
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     </head>
     <body>

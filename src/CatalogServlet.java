@@ -22,13 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/catalog")
 public class CatalogServlet extends HttpServlet{
 
 	    @Override
-	    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 	        ClientConfig config = new ClientConfig();
 
@@ -48,11 +49,16 @@ public class CatalogServlet extends HttpServlet{
             
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
             Map<String,Book> bookMap = new HashMap<String,Book>();  
+            
             for (int i = 0; i < bookList.size(); i++) {
+            	
             	bookMap.put(bookList.get(i).getId(), bookList.get(i));  
+            	
             }
+            
 	        request.setAttribute("bookList", bookMap);
 	        
+	        getServletConfig().getServletContext().getRequestDispatcher("/jsp/catalog.jsp").forward(request, response);
 	    }
 
 	    private static URI getBaseURI() {
