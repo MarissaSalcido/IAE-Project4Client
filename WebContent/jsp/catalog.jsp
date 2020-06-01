@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -22,13 +23,14 @@
             </div>
         </div>
 		
-
+		<% java.util.HashMap<String, models.Book> bookMap = (HashMap<String, models.Book>)request.getAttribute("bookMap"); %>
         <table class="table-products">
             <tr>
                 <td>
                     <div class="table-item-text">
                         <a href="../html/countdown.html"><img src="../images/1945.jpg" alt="1945"></img></a>
-                        1945<br>by Chris Wallace<br>Hardcover<br><span style="color:black; background-color: inherit;">$21.49</span>
+                        <% out.print(bookMap.get("INF5678").getName()); %>
+                        <br>by Chris Wallace<br>Hardcover<br><span style="color:black; background-color: inherit;">$14.99</span>
                     </div>
                 </td>
                 <td>

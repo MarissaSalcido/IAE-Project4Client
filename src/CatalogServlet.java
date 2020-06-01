@@ -8,7 +8,9 @@
 	import org.codehaus.jackson.type.TypeReference; 
 	import org.glassfish.jersey.client.ClientConfig;
 
-	import javax.servlet.http.HttpServlet;
+import models.Book;
+
+import javax.servlet.http.HttpServlet;
 	import javax.servlet.http.HttpServletRequest;
 	import javax.servlet.http.HttpServletResponse;
 	import javax.ws.rs.client.Client;
@@ -56,7 +58,7 @@ public class CatalogServlet extends HttpServlet{
             	
             }
             
-	        request.setAttribute("bookList", bookMap);
+	        request.setAttribute("bookMap", bookMap);
 	        
 	        getServletConfig().getServletContext().getRequestDispatcher("/jsp/catalog.jsp").forward(request, response);
 	    }
