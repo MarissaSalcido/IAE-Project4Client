@@ -22,12 +22,14 @@ import java.net.URI;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 
+import models.Example;
 /**
  *
  * @author 
  */
 @WebServlet("/restcli")
 public class RESTClientServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,26 +47,26 @@ public class RESTClientServlet extends HttpServlet {
         if (request.getParameter("id") == null) { //will also need to check for billing params later
         	// IF ID PARAMETER IS NULL I.E "/restcli" THEN RETURN ALL BOOKS 
             String jsonResponse =
-                    target.path("tomerest").path("books").
+                    target.path("tomerest").path("examples").
                             request(). //send a request
                             accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                             get(String.class); // use the get method and return the response as a string
 
             System.out.println(jsonResponse);
 
-            List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-           request.setAttribute("bookList", bookList);
+            List<Example> exampleList = objectMapper.readValue(jsonResponse, new TypeReference<List<Example>>(){});
+           request.setAttribute("exampleList", exampleList);
         }
         else if (request.getParameter("id") != null) {
         	//ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
             String jsonResponse2 =
-                    target.path("tomerest").path("books").path(request.getParameter("id")).
+                    target.path("tomerest").path("examples").path(request.getParameter("id")).
                             request(). //send a request
                             accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                             get(String.class);
 
-            Book book = objectMapper.readValue(jsonResponse2, Book.class);
-            request.setAttribute("book", book);
+            Example example = objectMapper.readValue(jsonResponse2, Example.class);
+            request.setAttribute("example", example);
         }
         
         
@@ -75,7 +77,7 @@ public class RESTClientServlet extends HttpServlet {
     private static URI getBaseURI() {
 
         //Change the URL here to make the client point to your service.
-        return UriBuilder.fromUri("http://localhost:8081/TomeRestService").build();
+        return UriBuilder.fromUri("http://localhost:8080/TomeRestService").build();
     }
 
 
