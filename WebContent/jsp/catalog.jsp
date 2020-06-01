@@ -21,20 +21,7 @@
                 </ul>
             </div>
         </div>
-
-        <div class="sidebar">
-            <div class="genre">
-                <h2>Genre</h2>
-                <ul id="genre-list">
-                    <li class="active-genre">All</li>
-                    <li>Fiction</li>
-                    <li>Mystery</li>
-                    <li>Horror</li>
-                    <li>Suspense</li>
-                    <li>Science Fiction</li>
-                </ul>
-            </div>
-        </div>
+		
 
         <table class="table-products">
             <tr>
