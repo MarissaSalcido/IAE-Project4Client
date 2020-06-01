@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +32,13 @@ public class SessionTracking extends HttpServlet {
 			out.println("<h3>None</h3>");
 		}
 		else {
+			
+			//Remove duplicates
+			Set<Item> hashSet = new HashSet<Item>(history);
+			history.clear();
+			history.addAll(hashSet);
+			//Duplicates removed
+			
 			out.println("          <table>\r\n" + 
 			"                    <tr>"); 
 			for (int i = history.size() - 1; i >= history.size() - 5; --i) {
