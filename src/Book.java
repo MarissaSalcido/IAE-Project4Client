@@ -9,10 +9,14 @@
  * @author 
  */
 public class Book {
+    private String id;
+    private String author;
+    private String genre;
+    private String name;
+    private int price;
+    private String type;
+    private String image;
     private String summary;
-    private String description;
-    private int id;
-
 
     public String getSummary() {
         return summary;
@@ -22,20 +26,50 @@ public class Book {
         this.summary = summary;
     }
 
-    public String getDescription() {
-        return description;
+    public String getImage() {
+        return image;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setImage(String image) {
+        this.image = image;
     }
-
-
-    public int getId() {
+    
+    public String getAuthor() {
+    	return author;
+    }
+    public void setAuthor(String author) {
+    	this.author = author;
+    }
+    public String getGenre() {
+    	return genre;
+    }
+    public void setGenre(String genre) {
+    	this.genre = genre;
+    }
+    public String getName() {
+    	return name;
+    }
+    public void setName(String name) {
+    	this.name = name;
+    }
+    public int getPrice() {
+    	return price;
+    }
+    public void setPrice(int price) {
+    	this.price = price;
+    }
+    public String getType() {
+    	return type;
+    }
+    public void setType(String type) {
+    	this.type = type;
+    }
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
+    
 }

@@ -44,7 +44,7 @@ public class CatalogServlet extends HttpServlet{
             System.out.println(jsonResponse);
 
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-            request.setAttribute("bookList", bookList);
+            System.out.println(bookList);
 	        
 	        
 	    }
