@@ -14,7 +14,7 @@
         <div class = "container">
             <div class="menu">
                 <ul style="margin-bottom: -10px;">
-                    <li class ="logo"> <img src="../images/book.png"> </li>
+                    <li class ="logo"> <img src="images/book.png"> </li>
                     <li class ="title">Tome</li>
                     <li><a href="../index.html">Home</a></li>
                     <li class="active"> Catalog </li>
@@ -28,9 +28,9 @@
             <tr>
                 <td>
                     <div class="table-item-text">
-                        <a href="../html/countdown.html"><img src="../images/1945.jpg" alt="1945"></img></a>
+                        <a href="ProductDetail/id=INF5678"><img src="../images/1945.jpg" alt="1945"></img></a>
                         <% out.print(bookMap.get("INF5678").getName()); %>
-                        <br>by Chris Wallace<br>Hardcover<br><span style="color:black; background-color: inherit;">$14.99</span>
+                        <br>by <% out.print(bookMap.get("INF5678").getAuthor()); %><br>Hardcover<br><span style="color:black; background-color: inherit;">$14.99</span>
                     </div>
                 </td>
                 <td>
