@@ -53,7 +53,7 @@ public class RESTClientServlet extends HttpServlet {
             System.out.println(jsonResponse);
 
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
-            out.print(bookList);
+           request.setAttribute("bookList", bookList);
         }
         else if (request.getParameter("id") != null) {
         	//ELSE IF PARAM ID SPECIFIED I.E "/restcli?id=INF1242" THEN RETURN A BOOK
@@ -64,7 +64,7 @@ public class RESTClientServlet extends HttpServlet {
                             get(String.class);
 
             Book book = objectMapper.readValue(jsonResponse2, Book.class);
-            out.print(book);
+            request.setAttribute("book", book);
         }
         
         
