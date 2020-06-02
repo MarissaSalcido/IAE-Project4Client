@@ -20,7 +20,10 @@ a{
     position: fixed;
     width:100%;
 }
-
+.history{
+	text-align: center;
+	color: #000;
+}
 h2 {
     background-color: inherit;
     color: white;

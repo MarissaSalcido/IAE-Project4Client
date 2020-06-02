@@ -25,11 +25,11 @@ public class SessionTracking extends HttpServlet {
         
         Vector<Item> history = (Vector<Item>) session.getAttribute("history");
         
-		out.println("<h2>Recently Viewed Products</h2>");
+		out.println("<h2 class='history'>Recently Viewed Products</h2>");
         
 		// If history does not exist or is empty, display message for empty cart 
 		if ((history == null) || history.isEmpty()) {
-			out.println("<h3>None</h3>");
+			out.println("<h3 class='history'>None</h3></body></html>");
 		}
 		else {
 			
@@ -39,13 +39,13 @@ public class SessionTracking extends HttpServlet {
 			history.addAll(hashSet);
 			//Duplicates removed
 			
-			out.println("          <table>\r\n" + 
+			out.println("          <table class='history'>\r\n" + 
 			"                    <tr>"); 
 			for (int i = history.size() - 1; i >= history.size() - 5; --i) {
 				out.println("       <td><img src=\"" + history.elementAt(i).imageSrc + "\" alt=\"" + history.elementAt(i).item + "\" width=\"80\" height=\"100\"></td>\r\n"); 
 			}
 			out.println("			</tr>");
-			out.println("</table>");
+			out.println("</table></body></html>");
 		}
 		
 		out.close();		

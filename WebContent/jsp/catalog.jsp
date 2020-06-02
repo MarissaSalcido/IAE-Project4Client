@@ -18,7 +18,7 @@
                     <li class ="title">Tome</li>
                     <li><a href="../index.html">Home</a></li>
                     <li class="active"> Catalog </li>
-                    <li><a href="../html/aboutus.html">About Us</a> </li>
+                    <li><a href="html/aboutus.html">About Us</a> </li>
                 </ul>
             </div>
         </div>
@@ -105,5 +105,3 @@
             </tr>
 
         </table>
-    </body>
-</html>

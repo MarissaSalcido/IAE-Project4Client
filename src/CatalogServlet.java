@@ -19,11 +19,13 @@ import javax.servlet.http.HttpServlet;
 	import javax.ws.rs.core.MediaType;
 	import javax.ws.rs.core.UriBuilder;
 	import java.io.IOException;
-	import java.net.URI;
+import java.io.PrintWriter;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -47,7 +49,6 @@ public class CatalogServlet extends HttpServlet{
                             accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                             get(String.class); // use the get method and return the response as a string
 
-            System.out.println(jsonResponse);
             
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
             Map<String,Book> bookMap = new HashMap<String,Book>();  
@@ -60,7 +61,11 @@ public class CatalogServlet extends HttpServlet{
             
 	        request.setAttribute("bookMap", bookMap);
 	        
-	        getServletConfig().getServletContext().getRequestDispatcher("/jsp/catalog.jsp").forward(request, response);
+	        RequestDispatcher rd1 = request.getRequestDispatcher("/jsp/catalog.jsp");
+			rd1.include(request, response);
+	        RequestDispatcher rd2 = request.getRequestDispatcher("SessionTracking");
+			rd2.include(request, response);
+			
 	    }
 
 	    private static URI getBaseURI() {
