@@ -14,7 +14,7 @@ public class Book {
     private String author;
     private String genre;
     private String name;
-    private int price;
+    private float price;
     private String type;
     private String image;
     private String summary;
@@ -53,10 +53,10 @@ public class Book {
     public void setName(String name) {
     	this.name = name;
     }
-    public int getPrice() {
+    public float getPrice() {
     	return price;
     }
-    public void setPrice(int price) {
+    public void setPrice(float price) {
     	this.price = price;
     }
     public String getType() {
