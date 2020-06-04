@@ -208,13 +208,15 @@ public class CheckOut extends HttpServlet {
 			
 			Vector<Item> cart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
 			Double sessionSubtotal = (Double) currentSession.getAttribute("subtotal");
-			double subtotal = sessionSubtotal.doubleValue();
+			double subtotald = sessionSubtotal.doubleValue();
 			
-			double taxNum = subtotal * 0.08;
-			double totalNum = subtotal + taxNum + shippingCostNum;
+			double taxNum = subtotald * 0.08;
+			double totalNum = subtotald + taxNum + shippingCostNum;
+			String subtotal = moneyFormat.format(subtotald);
 			String tax = moneyFormat.format(taxNum);
 			String shippingCost = moneyFormat.format(shippingCostNum);
 			String total = moneyFormat.format(totalNum);
+			currentSession.setAttribute("subtotal", subtotal);
 			currentSession.setAttribute("tax", tax);
 			currentSession.setAttribute("shippingCost", shippingCost);
 			currentSession.setAttribute("total", total);
@@ -250,7 +252,7 @@ public class CheckOut extends HttpServlet {
 			
 			out.println("<div class=\"total\">");
 			out.println("	<h6 class=\"totalline\">Subtotal:</h6>"); 
-			out.println("   <p class=\"totalline\" id=\"subtotal\">$" + moneyFormat.format(subtotal) + "</p>\r\n" + 
+			out.println("   <p class=\"totalline\" id=\"subtotal\">$" + subtotal + "</p>\r\n" + 
 					"	</div>" + 
 					"	<br>");
 			

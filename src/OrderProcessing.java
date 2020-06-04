@@ -22,6 +22,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +78,7 @@ public class OrderProcessing extends HttpServlet {
         order.setExpYear(req.getParameter("expyear"));
         order.setCvv(req.getParameter("cvv"));
                 
-		Double sessionSubtotal = (Double) currentSession.getAttribute("subtotal");
-		String subtotal = String.valueOf(sessionSubtotal.doubleValue());
+		String subtotal = (String) currentSession.getAttribute("subtotal");
 		order.setSubtotal(subtotal);
         
         order.setTax((String) currentSession.getAttribute("tax"));
@@ -89,13 +89,15 @@ public class OrderProcessing extends HttpServlet {
 		Vector<Item> sessionCart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
         List<OrderItem> shoppingCart = new ArrayList<OrderItem>();
         OrderItem orderItem;
+        DecimalFormat moneyFormat = new DecimalFormat("#0.00");
         
         for (int i = 0; i < sessionCart.size(); ++i) {
         	orderItem = new OrderItem();
         	orderItem.setProductId(sessionCart.elementAt(i).id);
         	orderItem.setImageSrc(sessionCart.elementAt(i).imageSrc);
         	orderItem.setItemName(sessionCart.elementAt(i).item);
-        	orderItem.setPrice(Double.toString(sessionCart.elementAt(i).price));
+        	double price = Double.valueOf(sessionCart.elementAt(i).price);
+        	orderItem.setPrice(moneyFormat.format(price));
         	orderItem.setQuantity(Integer.toString(sessionCart.elementAt(i).quantity));
         	shoppingCart.add(orderItem);
         }
