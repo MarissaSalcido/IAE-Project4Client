@@ -19,6 +19,7 @@
                     <li><a href="../index.html">Home</a></li>
                     <li class="active"> Catalog </li>
                     <li><a href="html/aboutus.html">About Us</a> </li>
+                    <li><a href="cart">Cart</a> </li>
                 </ul>
             </div>
         </div>

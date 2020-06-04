@@ -202,7 +202,6 @@ public class Order {
     	return itemsList;
     }
     
-    
     public void setOrderItems(List<OrderItem> orderItems) {
     	OrderItem itemToAdd;
     	

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/Cart")
+@WebServlet("/cart")
 public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private double subtotal;   
@@ -25,14 +25,14 @@ public class Cart extends HttpServlet {
  
 
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession currentSession = req.getSession(true);
 		Vector<Item> tempCart = new Vector<Item>();
 		tempCart.add(new Item("INF5678", "images/1945.jpg", "COUNTDOWN 1945", 15.30, 1));
 		tempCart.add(new Item("INF1234", "images/a_stroke_of_malice.jpg", "A STROKE OF MALICE", 15.30, 2));
 		
-		req.setAttribute("shoppingCart", tempCart);
-		
-		
+		currentSession.setAttribute("shoppingCart", tempCart);
+				
 		res.setContentType("text/html; charset='UTF-8'");
 		PrintWriter out = res.getWriter();
 		out.println("<!DOCTYPE html>\r\n" + 
@@ -50,16 +50,12 @@ public class Cart extends HttpServlet {
 					"	<div class = \"container\">\r\n" + 
 					"        <div class=\"menu\">\r\n" + 
 					"            <ul>\r\n" + 	
-					"                <li class =\"logo\"> <a href=\"index.html\" style=\"text-decoration:none;\"><img src=\"images/book.png\"> </li>\r\n" + 
-					"                <li class =\"title\"> Tome </li>\r\n" + 
-					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
-					"                <li><a href=\"html/aboutus.html\" style=\"text-decoration: none;\">About Us</a></li>\r\n" +
-					"                <li> <a href=\"products\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
-					"                <li>\r\n" + 
-		    		"                	<form action=\"Cart\" method=\"post\">\r\n" + 
-		    		"                    	<small><input class=\"formInputs cartNav\" type=\"submit\" value=\"Cart\"></small>\r\n" + 
-		    		"                  	</form>\r\n" + 
-		    		"                </li>\r\n" +
+				"                    <li class =\"logo\"> <img src=\"images/book.png\"> </li>\r\n" + 
+				"                    <li class =\"title\">Tome</li>\r\n" + 
+				"                    <li><a href=\"../index.html\">Home</a></li>\r\n" + 
+				"                    <li> <a href=\"catalog\">Catalog</a></li>\r\n" + 
+				"                    <li><a href=\"html/aboutus.html\">About Us</a> </li>\r\n" + 
+				"                    <li class=\"active\">Cart</li>" +
 					"            </ul>\r\n" + 
 					"        </div>\r\n" + 
 					"    </div>\r\n" + 
@@ -67,8 +63,6 @@ public class Cart extends HttpServlet {
 				"            <div class=\"overall\">\r\n" + 
 				"                <h1>Shopping Cart</h1>\r\n"); 
 
-		
-		HttpSession currentSession = req.getSession(true);
 		
 		Vector<Item> cart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
 		

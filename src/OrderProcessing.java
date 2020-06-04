@@ -112,7 +112,7 @@ public class OrderProcessing extends HttpServlet {
         
         System.out.println("jsonResponse: " + jsonResponse);
                        
-        req.setAttribute("jsonResponse", jsonResponse);
+        currentSession.setAttribute("jsonResponse", jsonResponse);
         
 		RequestDispatcher rd = req.getRequestDispatcher("OrderConf");
 		rd.forward(req, res);       
