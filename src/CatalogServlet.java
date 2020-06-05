@@ -31,8 +31,9 @@ import javax.servlet.annotation.WebServlet;
 
 @WebServlet("/catalog")
 public class CatalogServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 
-	    @Override
+		@Override
 	    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 	        ClientConfig config = new ClientConfig();
@@ -71,7 +72,7 @@ public class CatalogServlet extends HttpServlet{
 	    private static URI getBaseURI() {
 
 	        //Change the URL here to make the client point to your service.
-	        return UriBuilder.fromUri("http://localhost:8081/TomeRestService").build();
+	        return UriBuilder.fromUri("http://localhost:8080/TomeRestService").build();
 	    }
 
 }

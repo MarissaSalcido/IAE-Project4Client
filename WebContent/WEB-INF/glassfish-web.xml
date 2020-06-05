@@ -21,5 +21,15 @@
     <property name="keepgenerated" value="true">
       <description>Keep a copy of the generated servlet class' java code.</description>
     </property>
+    
   </jsp-config>
+    <servlet>
+  	<servlet-name>Cart</servlet-name>
+  	<servlet-class>Cart</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>Cart</servlet-name>
+  	<url-pattern>/cart</url-pattern>
+  </servlet-mapping>
 </glassfish-web-app>

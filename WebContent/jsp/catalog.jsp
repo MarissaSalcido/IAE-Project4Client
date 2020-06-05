@@ -19,6 +19,7 @@
                     <li><a href="../index.html">Home</a></li>
                     <li class="active"> Catalog </li>
                     <li><a href="html/aboutus.html">About Us</a> </li>
+                    <li><a href="cart">Cart</a> </li>
                 </ul>
             </div>
         </div>
@@ -28,7 +29,7 @@
             <tr>
                 <td>
                     <div class="table-item-text">
-                        <a href="ProductDetail/id=INF5678"><img src=<% out.print(bookMap.get("INF5678").getImage()); %> alt=<% out.print(bookMap.get("INF5678").getName()); %>></img></a>
+                        <a href="ProductDetail?id=INF5678"><img src=<% out.print(bookMap.get("INF5678").getImage()); %> alt=<% out.print(bookMap.get("INF5678").getName()); %>></img></a>
                         <% out.print(bookMap.get("INF5678").getName()); %>
                         <br>by <% out.print(bookMap.get("INF5678").getAuthor()); %><br><% out.print(bookMap.get("INF5678").getType()); %><br><span style="color:black; background-color: inherit;">$<% out.print(bookMap.get("INF5678").getPrice()); %></span>
                     </div>
