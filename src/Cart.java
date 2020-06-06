@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/cart")
+@WebServlet("/Cart")
 public class Cart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private double subtotal;   
