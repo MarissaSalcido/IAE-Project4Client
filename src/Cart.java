@@ -54,7 +54,7 @@ public class Cart extends HttpServlet {
 				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"../index.html\">Tome</a></li>\r\n" + 
 					"                <li> <a href=\"../index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
 					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
-					"                <li> <a style=\"text-decoration:none;\" href=\"products\"> Catalog </a> </li>\r\n" + 
+					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
 				"                    <li>\n" + 
 				"                    	<form action=\"Cart\" method=\"post\">\n" + 
 				"                    		<small><input class=\"formInputs cartNav\" type=\"submit\" value=\"Cart\"></small>\n" + 
