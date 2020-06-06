@@ -33,7 +33,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import models.Book;
 import models.Order;
 import models.OrderItem;
 
@@ -56,7 +55,7 @@ public class OrderProcessing extends HttpServlet {
 
         Client client = ClientBuilder.newClient(config);
 
-        WebTarget target = client.target(getBaseURI()).path("tomerest").path("orders");
+        WebTarget target = client.target(getBaseURI()).path("tomerest").path("order");
         
         ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library	
 			
@@ -78,27 +77,28 @@ public class OrderProcessing extends HttpServlet {
         order.setExpYear(req.getParameter("expyear"));
         order.setCvv(req.getParameter("cvv"));
                 
-		String subtotal = (String) currentSession.getAttribute("subtotal");
-		order.setSubtotal(subtotal);
-        
-        order.setTax((String) currentSession.getAttribute("tax"));
-        order.setShippingCost((String) currentSession.getAttribute("shippingCost"));
-        order.setTotal((String) currentSession.getAttribute("total"));
+		Double subtotal = (Double) currentSession.getAttribute("subtotal");
+		order.setSubtotal(subtotal.doubleValue());
+		        
+		Double tax = (Double) currentSession.getAttribute("tax");
+        order.setTax(tax.doubleValue());
+        Double shippingCost = (Double) currentSession.getAttribute("shippingCost");
+        order.setShippingCost(shippingCost.doubleValue());
+        Double total = (Double) currentSession.getAttribute("total");
+        order.setTotal(total.doubleValue());
         
         @SuppressWarnings("unchecked")
 		Vector<Item> sessionCart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
         List<OrderItem> shoppingCart = new ArrayList<OrderItem>();
         OrderItem orderItem;
-        DecimalFormat moneyFormat = new DecimalFormat("#0.00");
         
         for (int i = 0; i < sessionCart.size(); ++i) {
         	orderItem = new OrderItem();
         	orderItem.setProductId(sessionCart.elementAt(i).id);
         	orderItem.setImageSrc(sessionCart.elementAt(i).imageSrc);
         	orderItem.setItemName(sessionCart.elementAt(i).item);
-        	double price = Double.valueOf(sessionCart.elementAt(i).price);
-        	orderItem.setPrice(moneyFormat.format(price));
-        	orderItem.setQuantity(Integer.toString(sessionCart.elementAt(i).quantity));
+        	orderItem.setPrice(sessionCart.elementAt(i).price);
+        	orderItem.setQuantity(sessionCart.elementAt(i).quantity);
         	shoppingCart.add(orderItem);
         }
         

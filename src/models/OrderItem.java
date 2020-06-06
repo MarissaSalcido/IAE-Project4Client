@@ -5,9 +5,9 @@ public class OrderItem {
 	private String productId;
 	private String imageSrc;
 	private String itemName;
-	private String price;
-	private String quantity;
-			
+	private double price;
+	private int quantity;
+		
 	public String getProductId() {
 		return this.productId;
 	}
@@ -32,19 +32,19 @@ public class OrderItem {
 		this.itemName = itemName;
 	}
 	
-	public String getPrice() {
+	public double getPrice() {
 		return this.price;
 	}
 	
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	
-	public String getQuantity() {
+	public int getQuantity() {
 		return this.quantity;
 	}
 		
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 }

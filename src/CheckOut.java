@@ -54,11 +54,7 @@ public class CheckOut extends HttpServlet {
 				"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
 				"                <li><a href=\"html/aboutus.html\" style=\"text-decoration: none;\">About Us</a></li>\r\n" +
 				"                <li> <a href=\"products\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
-				"                <li>\r\n" + 
-	    		"                	<form action=\"Cart\" method=\"post\">\r\n" + 
-	    		"                    	<small><input class=\"formInputs cartNav\" type=\"submit\" value=\"Cart\"></small>\r\n" + 
-	    		"                  	</form>\r\n" + 
-	    		"                </li>\r\n" +
+				"                <li> <a href=\"cart\" style=\"text-decoration:none;\"> Cart </a> </li>\r\n" + 
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
@@ -125,19 +121,19 @@ public class CheckOut extends HttpServlet {
 			"                <div for=\"state\" id=\"stateerror\" class=\"errormessage\"></div>\r\n" + 
 			"                <br>");
 			
-			double shippingCostNum = 0;
+			double shippingCost = 0;
 			out.println("<label class=\"orderconflabel\">Shipping Method: </label>");
 			if (shippingMethod.compareTo("ground") == 0) {
 				out.println("<span>6-Days Ground   $0.00</span>");
-				shippingCostNum = 0;
+				shippingCost = 0;
 			}
 			else if (shippingMethod.compareTo("expedited") == 0) {
 				out.println("<span>2-Days Expedited   $10.99</span>");
-				shippingCostNum = 10.99;
+				shippingCost = 10.99;
 			}
 			else if (shippingMethod.compareTo("overnight") == 0) {
 				out.println("<span>Overnight   $17.50</span>");
-				shippingCostNum = 17.50;
+				shippingCost = 17.50;
 			}
 			
 			out.println("                <h2>Billing</h2>\r\n" + 
@@ -206,16 +202,13 @@ public class CheckOut extends HttpServlet {
 		
 			DecimalFormat moneyFormat = new DecimalFormat("#0.00");
 			
+			@SuppressWarnings("unchecked")
 			Vector<Item> cart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
 			Double sessionSubtotal = (Double) currentSession.getAttribute("subtotal");
-			double subtotald = sessionSubtotal.doubleValue();
+			double subtotal = sessionSubtotal.doubleValue();
 			
-			double taxNum = subtotald * 0.08;
-			double totalNum = subtotald + taxNum + shippingCostNum;
-			String subtotal = moneyFormat.format(subtotald);
-			String tax = moneyFormat.format(taxNum);
-			String shippingCost = moneyFormat.format(shippingCostNum);
-			String total = moneyFormat.format(totalNum);
+			double tax = Math.floor(subtotal * 0.08 * 100) / 100;
+			double total = subtotal + tax + shippingCost;
 			currentSession.setAttribute("subtotal", subtotal);
 			currentSession.setAttribute("tax", tax);
 			currentSession.setAttribute("shippingCost", shippingCost);
@@ -252,13 +245,13 @@ public class CheckOut extends HttpServlet {
 			
 			out.println("<div class=\"total\">");
 			out.println("	<h6 class=\"totalline\">Subtotal:</h6>"); 
-			out.println("   <p class=\"totalline\" id=\"subtotal\">$" + subtotal + "</p>\r\n" + 
+			out.println("   <p class=\"totalline\" id=\"subtotal\">$" + moneyFormat.format(subtotal) + "</p>\r\n" + 
 					"	</div>" + 
 					"	<br>");
 			
 			out.println("<div class=\"total\">");
 			out.println("	<h6 class=\"totalline\">Tax:</h6>"); 
-			out.println("   <p class=\"totalline\" id=\"tax\">$" + tax + "</p>\r\n" + 
+			out.println("   <p class=\"totalline\" id=\"tax\">$" + moneyFormat.format(tax) + "</p>\r\n" + 
 					"	</div>" + 
 					"	<br>");
 			
@@ -267,13 +260,13 @@ public class CheckOut extends HttpServlet {
 			
 			out.println("<div class=\"total\">");
 			out.println("	<h6 class=\"totalline\">Shipping:</h6>"); 
-			out.println("   <p class=\"totalline\" id=\"shipping\">$" + shippingCost + "</p>\r\n" + 
+			out.println("   <p class=\"totalline\" id=\"shipping\">$" + moneyFormat.format(shippingCost) + "</p>\r\n" + 
 					"	</div>" + 
 					"	<br>");
 			
 			out.println("<div class=\"total\">");
 			out.println("	<h6 class=\"totalline\">Total:</h6>"); 
-			out.println("   <p class=\"totalline\" id=\"Total\">$" + total + "</p>\r\n" + 
+			out.println("   <p class=\"totalline\" id=\"Total\">$" + moneyFormat.format(total) + "</p>\r\n" + 
 					"	</div>" + 
 					"	<br>");
 						

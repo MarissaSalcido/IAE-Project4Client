@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class OrderConf extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		DecimalFormat moneyFormat = new DecimalFormat("#0.00");
+		
 		HttpSession currentSession = req.getSession(true);
 		
 		String orderJSON = (String) currentSession.getAttribute("jsonResponse");
@@ -65,7 +68,7 @@ public class OrderConf extends HttpServlet {
 				"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
 				"                <li><a href=\"html/aboutus.html\" style=\"text-decoration: none;\">About Us</a></li>\r\n" +
 				"                <li> <a href=\"products\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
-				"				 <li>Cart</li>" +
+				"                <li> <a href=\"cart\" style=\"text-decoration:none;\"> Cart </a> </li>\r\n" + 
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
@@ -157,11 +160,6 @@ public class OrderConf extends HttpServlet {
 		
 		
 		List<OrderItem> itemsList = orderConf.getOrderItems();
-		String product_id;
-		String image_src;
-		String item;
-		String price;
-		String quantity;
 		
 		
 		// Loop through each arraylist/list item and assign to variable
@@ -170,7 +168,7 @@ public class OrderConf extends HttpServlet {
 			out.println("		<td class=\"leftedge\">" + itemsList.get(i).getProductId() + "</td>"); 
 			out.println("       <td><img src=\"" + itemsList.get(i).getImageSrc() + "\" alt=\"This book name\" width=\"80\" height=\"100\"></td>\r\n"); 
 			out.println("   	<td>" + itemsList.get(i).getItemName() + "</td>"); 
-			out.println("   	<td>$" + itemsList.get(i).getPrice() + "</td>"); 
+			out.println("   	<td>$" + moneyFormat.format(itemsList.get(i).getPrice()) + "</td>"); 
 			out.println("   	<td class=\"rightedge\">" + itemsList.get(i).getQuantity() + "</td>"); 
 			out.println("	</tr>");
 		}
@@ -181,25 +179,25 @@ public class OrderConf extends HttpServlet {
 		
 		out.println("<div class=\"total\">");
 		out.println("	<h6 class=\"totalline\">Subtotal:</h6>"); 
-		out.println("   <p class=\"totalline\" id=\"subtotal\">$" + orderConf.getSubtotal() + "</p>\r\n" + 
+		out.println("   <p class=\"totalline\" id=\"subtotal\">$" + moneyFormat.format(orderConf.getSubtotal()) + "</p>\r\n" + 
 				"	</div>" + 
 				"	<br>");
 		
 		out.println("<div class=\"total\">");
 		out.println("	<h6 class=\"totalline\">Tax:</h6>"); 
-		out.println("   <p class=\"totalline\" id=\"tax\">$" + orderConf.getTax() + "</p>\r\n" + 
+		out.println("   <p class=\"totalline\" id=\"tax\">$" + moneyFormat.format(orderConf.getTax()) + "</p>\r\n" + 
 				"	</div>" + 
 				"	<br>");
 		
 		out.println("<div class=\"total\">");
 		out.println("	<h6 class=\"totalline\">Shipping:</h6>"); 
-		out.println("   <p class=\"totalline\" id=\"shipping\">$" + orderConf.getShippingCost() + "</p>\r\n" + 
+		out.println("   <p class=\"totalline\" id=\"shipping\">$" + moneyFormat.format(orderConf.getShippingCost()) + "</p>\r\n" + 
 				"	</div>" + 
 				"	<br>");
 		
 		out.println("<div class=\"total\">");
 		out.println("	<h6 class=\"totalline\">Total:</h6>"); 
-		out.println("   <p class=\"totalline\" id=\"Total\">$" + orderConf.getTotal() + "</p>\r\n" + 
+		out.println("   <p class=\"totalline\" id=\"Total\">$" + moneyFormat.format(orderConf.getTotal()) + "</p>\r\n" + 
 				"	</div>" + 
 				"	<br>");
 		

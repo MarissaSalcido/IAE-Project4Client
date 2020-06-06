@@ -64,6 +64,7 @@ public class Cart extends HttpServlet {
 				"                <h1>Shopping Cart</h1>\r\n"); 
 
 		
+		@SuppressWarnings("unchecked")
 		Vector<Item> cart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
 		
 		// If cart does not exist or is empty, display message for empty cart 
@@ -98,7 +99,7 @@ public class Cart extends HttpServlet {
 				this.subtotal += cart.elementAt(i).price * cart.elementAt(i).quantity;
 			}
 			
-			currentSession.setAttribute("subtotal", new Double(this.subtotal));
+			currentSession.setAttribute("subtotal", this.subtotal);
 			
 			out.println("</table>");
 			
