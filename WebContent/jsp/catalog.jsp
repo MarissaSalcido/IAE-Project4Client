@@ -19,7 +19,11 @@
                     <li><a href="../index.html">Home</a></li>
                     <li class="active"> Catalog </li>
                     <li><a href="html/aboutus.html">About Us</a> </li>
-                    <li><a href="cart">Cart</a> </li>
+                    <li>
+                    	<form action="cart" method="post">
+                    		<small><input class="formInputs cartNav" type="submit" value="Cart"></small>
+                    	</form>
+                    </li>
                 </ul>
             </div>
         </div>
