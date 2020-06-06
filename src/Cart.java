@@ -48,13 +48,13 @@ public class Cart extends HttpServlet {
 				"    </head>\r\n" + 
 				"    <body>\r\n" + 
 					"	<div class = \"container\">\r\n" + 
-					"        <div class=\"menu\">\r\n" + 
+					"        <div class=\"menu noTextDecoration\">\r\n" + 
 					"            <ul>\r\n" + 	
-				"                    <li class =\"logo\"> <img src=\"images/book.png\"> </li>\r\n" + 
-				"                    <li class =\"title\">Tome</li>\r\n" + 
-				"                    <li><a href=\"../index.html\">Home</a></li>\r\n" + 
-				"                    <li> <a href=\"catalog\">Catalog</a></li>\r\n" + 
-				"                    <li><a href=\"html/aboutus.html\">About Us</a> </li>\r\n" + 
+				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
+				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"../index.html\">Tome</a></li>\r\n" + 
+					"                <li> <a href=\"../index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
+					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
+					"                <li> <a style=\"text-decoration:none;\" href=\"products\"> Catalog </a> </li>\r\n" + 
 				"                    <li class=\"active\">Cart</li>" +
 					"            </ul>\r\n" + 
 					"        </div>\r\n" + 

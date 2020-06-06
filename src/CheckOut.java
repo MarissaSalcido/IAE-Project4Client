@@ -47,14 +47,14 @@ public class CheckOut extends HttpServlet {
 		out.println("    <body>\r\n" + 
 				"\r\n" + 
 				"	<div class = \"container\">\r\n" + 
-				"        <div class=\"menu\">\r\n" + 
+				"        <div class=\"menu noTextDecoration\">\r\n" + 
 				"            <ul>\r\n" + 	
-				"                <li class =\"logo\"> <a href=\"index.html\" style=\"text-decoration:none;\"><img src=\"images/book.png\"> </li>\r\n" + 
-				"                <li class =\"title\"> Tome </li>\r\n" + 
-				"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
-				"                <li><a href=\"html/aboutus.html\" style=\"text-decoration: none;\">About Us</a></li>\r\n" +
-				"                <li> <a href=\"products\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
-				"                <li> <a href=\"cart\" style=\"text-decoration:none;\"> Cart </a> </li>\r\n" + 
+				"                <li class =\"logo\"> <a href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
+				"                <li class =\"title\"> <a href=\"../index.html\">Tome</a> </li>\r\n" + 
+				"                <li> <a href=\"../index.html\"> Home </a> </li>\r\n" +
+				"                <li><a href=\"html/aboutus.html\">About Us</a></li>\r\n" +
+				"                <li> <a href=\"products\"> Catalog </a> </li>\r\n" + 
+				"                <li> <a href=\"cart\"> Cart </a> </li>\r\n" + 
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
