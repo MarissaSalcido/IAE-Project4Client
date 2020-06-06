@@ -68,7 +68,7 @@ public class OrderConf extends HttpServlet {
 				"                <li> <a href=\"../index.html\"> Home </a> </li>\r\n" +
 				"                <li><a href=\"html/aboutus.html\">About Us</a></li>\r\n" +
 				"                <li> <a href=\"products\"> Catalog </a> </li>\r\n" + 
-				"                <li> <a href=\"cart\"> Cart </a> </li>\r\n" + 
+				"                <li> <a href=\"Cart\"> Cart </a> </li>\r\n" + 
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
