@@ -117,7 +117,7 @@ public class OrderProcessing extends HttpServlet {
     private static URI getBaseURI() {
 
         //Change the URL here to make the client point to your service.
-        return UriBuilder.fromUri("http://localhost:8080/TomeRestService").build();
+        return UriBuilder.fromUri(RestUri.URI).build();
     }
 
 
