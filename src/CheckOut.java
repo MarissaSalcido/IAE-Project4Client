@@ -54,11 +54,7 @@ public class CheckOut extends HttpServlet {
 				"                <li> <a href=\"../index.html\"> Home </a> </li>\r\n" +
 				"                <li><a href=\"html/aboutus.html\">About Us</a></li>\r\n" +
 				"                <li> <a href=\"catalog\"> Catalog </a> </li>\r\n" + 
-				"                <li>\n" + 
-				"                    	<form action=\"Cart\" method=\"post\">\n" + 
-				"                    		<small><input class=\"formInputs cartNav\" type=\"submit\" value=\"Cart\"></small>\n" + 
-				"                    	</form>\n" + 
-				"                    </li>" + 
+				"                <li><a href=\"Cart\">Cart</a></li>" + 
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +

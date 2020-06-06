@@ -16,14 +16,10 @@
                 <ul style="margin-bottom: -10px;">
                     <li class ="logo"> <img src="images/book.png"> </li>
                     <li class ="title">Tome</li>
-                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="html/aboutus.html">About Us</a> </li>
                     <li class="active"> Catalog </li>
-                    <li>
-                    	<form action="Cart" method="post">
-                    		<small><input class="formInputs cartNav" type="submit" value="Cart"></small>
-                    	</form>
-                    </li>
+                    <li><a href="Cart">Cart</a></li>
                 </ul>
             </div>
         </div>

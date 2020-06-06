@@ -1,19 +1,18 @@
-
-	import org.codehaus.jackson.map.ObjectMapper;
-	import org.codehaus.jackson.type.TypeReference; 
-	import org.glassfish.jersey.client.ClientConfig;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference; 
+import org.glassfish.jersey.client.ClientConfig;
 
 import models.Book;
 
 import javax.servlet.http.HttpServlet;
-	import javax.servlet.http.HttpServletRequest;
-	import javax.servlet.http.HttpServletResponse;
-	import javax.ws.rs.client.Client;
-	import javax.ws.rs.client.ClientBuilder;
-	import javax.ws.rs.client.WebTarget;
-	import javax.ws.rs.core.MediaType;
-	import javax.ws.rs.core.UriBuilder;
-	import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.HashMap;
@@ -67,7 +66,7 @@ public class CatalogServlet extends HttpServlet{
 	    private static URI getBaseURI() {
 
 	        //Change the URL here to make the client point to your service.
-	        return UriBuilder.fromUri("http://localhost:8080/TomeRestService").build();
+	        return UriBuilder.fromUri("http://localhost:8081/TomeRestService").build();
 	    }
 
 }
