@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -138,6 +140,7 @@ public class ProductDetailServlet extends HttpServlet{
 				currentSession.setAttribute("history", history);
 			}
 			
+			
 			res.setContentType("text/html");
 			String html = "<!DOCTYPE html>\r\n" + 
 					"<html>\r\n" + 
@@ -172,11 +175,11 @@ public class ProductDetailServlet extends HttpServlet{
 					"            <h3>"+name+" - "+author+"</h3>\r\n" + 
 					"            <p>"+type+"</p>"+
 					"            <p class=\"product_code\">Product Code: "+productID+"</p><br>\r\n" + 
-					"            <h4 class=\"price\"> USD $"+price+" </h4><br>\r\n" + 
+					"            <h4 class=\"price\"> USD $"+ String.format("%.2f", Double.parseDouble(price)) +" </h4><br>\r\n" + 
 					"            <h4 class=\"aval\">Availability: In Stock</h4><br>\r\n" + 
 					"            <p class=\"word_wrap\"><strong>"+desc+"</strong></p>\r\n" + 
 					
-					"          </div>\r\n" + 
+					"          </div>\r\n" +
 					"        </div>\r\n" + 
 					"   </div>"+
 					"	<form class=\"addToCartForm\" method='post' action=\"ProductDetail?id="+productID+"&add="+productID+"\">"
