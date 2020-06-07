@@ -137,12 +137,8 @@ public class ProductDetailServlet extends HttpServlet{
 					"                <li class =\"title\"> Tome </li>\r\n" + 
 					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
 					"                <li><a href=\"html/aboutus.html\" style=\"text-decoration: none;\">About Us</a></li>\r\n" +
-					"                <li class=\"active\"> <a href=\"products\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
-					"                <li>\r\n" + 
-		    		"                	<form action=\"Cart\" method=\"post\">\r\n" + 
-		    		"                    	<small><input class=\"formInputs cartNav\" type=\"submit\" value=\"Cart\"></small>\r\n" + 
-		    		"                  	</form>\r\n" + 
-		    		"                </li>\r\n" +
+					"                <li class=\"active\"> <a href=\"catalog\" style=\"text-decoration:none;\"> Catalog </a> </li>\r\n" + 
+					"                <li><a href=\"Cart\">Cart</a></li>\r\n" +
 					"            </ul>\r\n" + 
 					"        </div>\r\n" + 
 					"    </div>\r\n" + 
@@ -163,7 +159,7 @@ public class ProductDetailServlet extends HttpServlet{
 					"          </div>\r\n" + 
 					"        </div>\r\n" + 
 					"   </div>"+
-					"	<form class=\"addToCartForm\" method='post' action=\"ProductDetail?ID="+productID+"&add="+productID+"\">"
+					"	<form class=\"addToCartForm\" method='post' action=\"ProductDetail?id="+productID+"&add="+productID+"\">"
 					+ "<small><input class=\"formInputs\" type=\"number\" name=\"amount\" value=\"1\" min=\"1\"></small>"+
 					"  <small><input class=\"formInputs\" type=\"submit\" value=\"Add to Cart\" /></small>"+ added +
 		    		"</body>\r\n" + 
