@@ -44,7 +44,6 @@ public class CatalogServlet extends HttpServlet{
                             accept(MediaType.APPLICATION_JSON). //specify the media type of the response
                             get(String.class); // use the get method and return the response as a string
 
-            
             List<Book> bookList = objectMapper.readValue(jsonResponse, new TypeReference<List<Book>>(){});
             Map<String,Book> bookMap = new HashMap<String,Book>();  
             
