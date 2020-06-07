@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
@@ -26,101 +24,120 @@ public class CheckOut extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String shippingMethod = req.getParameter("shippingmethod");
+		processRequest(req, res);
+	}
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		processRequest(req, res);
+	}
+	
+	protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession currentSession = req.getSession(false);
+		double shippingCost;
 		
+		String shippingMethod = req.getParameter("shippingmethod");
 		currentSession.setAttribute("shippingMethod", shippingMethod);
+				
+		FormErrors errorMessages;
+		if (currentSession.getAttribute("errorMessages") == null) {
+			currentSession.setAttribute("errorMessages", new FormErrors());
+			System.out.println("errorMessages is null");
+		}
+		else {
+			System.out.println("errorMessages is not null");
+		}
+		
+		errorMessages = (FormErrors) currentSession.getAttribute("errorMessages");
 		
 		res.setContentType("text/html; charset='UTF-8'");
 		PrintWriter out = res.getWriter();
-		out.println("<!DOCTYPE html>\r\n" + 
-				"<html lang=\"en\">\r\n" + 
-				"    <head>\r\n" + 
-				"        <title>Check Out</title>\r\n" + 
-				"        <meta name=\"description\" content=\"Check Out\">\r\n" + 
-				"        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">\r\n" + 
-				"        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/ordering.css\">\r\n" + 
-				"        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\r\n" + 
-				"        <script type = \"text/javascript\" src=\"js/orderingAjax.js\"></script>\r\n" + 
-				"        <script type=\"text/javascript\" src=\"js/orderFormValidation.js\"></script>\r\n" + 
-				"    </head>\r\n"); 
-		out.println("    <body>\r\n" + 
-				"\r\n" + 
-				"	<div class = \"container\">\r\n" + 
-				"        <div class=\"menu noTextDecoration\">\r\n" + 
-				"            <ul>\r\n" + 	
-				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
-				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"index.html\">Tome</a></li>\r\n" + 
-					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
-					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
-					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
-				"                    <li><a href=\"Cart\">Cart</a></li>" +				"            </ul>\r\n" + 
-				"        </div>\r\n" + 
-				"    </div>\r\n" +
-				
-				
-				"        <div class=\"center\">\r\n" + 
-				"			<div class=\"overall\">" +
-				"                <h1>Check Out</h1>\r\n");
+		out.println("<!DOCTYPE html>"); 
+		out.println("<html lang=\"en\">"); 
+		out.println("	<head>"); 
+		out.println("       <title>Check Out</title>"); 
+		out.println("       <meta name=\"description\" content=\"Check Out\">"); 
+		out.println("       <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">"); 
+		out.println("       <link rel=\"stylesheet\" type=\"text/css\" href=\"css/ordering.css\">"); 
+		out.println("		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>"); 
+		out.println("   </head>"); 
+		out.println("	<body>"); 
+		out.println("		<div class = \"container\">"); 
+		out.println("       	<div class=\"menu noTextDecoration\">"); 
+		out.println("           	<ul>"); 	
+		out.println("               	<li class =\"logo\"> <a href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>"); 
+		out.println("                	<li class =\"title\"> <a href=\"../index.html\"> Tome </a> </li>"); 
+		out.println("               	<li> <a href=\"../index.html\"> Home </a> </li>");
+		out.println("               	<li> <a href=\"html/aboutus.html\"> About Us </a> </li>");
+		out.println("               	<li> <a href=\"catalog\"> Catalog </a> </li>"); 
+		out.println("               	<li> <a href=\"Cart\"> Cart </a> </li>");
+		out.println("				</ul>");
+		out.println("			</div>"); 
+		out.println("		</div>");
+		out.println("       <div class=\"center\">"); 
+		out.println("			<div class=\"overall\">");
+		out.println("				<h1>Check Out</h1>");
+		out.println("				<form action=\"OrderProcessing\" novalidate class=\"overall\" name=\"orderform\" id=\"orderform\" onSubmit=\"return validateForm()\" method=\"post\">");
+		out.println("               	<p id=\"formnote\">All fields required, except \"Address 2\" field</p>"); 
+		out.println("					<h2>Personal</h2>"); 
 
-
-			out.println(
-			"            <form action=\"OrderProcessing\" novalidate class=\"overall\" name=\"orderform\" id=\"orderform\" onSubmit=\"return validateForm()\" method=\"post\">\r\n" +
-			"                <p id=\"formnote\">All fields required, except \"Address 2\" field</p>\r\n" + 
-							"\r\n" +
-			"                <h2>Personal</h2>\r\n" + 
-			"                <!-- First name -->\r\n" + 
-			"                <label for=\"firstname\">First Name: </label>\r\n" + 
-			"                <input name=\"firstname\" id=\"firstname\" type=\"text\" required>\r\n" + 
-			"                <div for=\"firstname\" id=\"firstnameerror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- Last name -->\r\n" + 
-			"                <label for=\"lastname\">Last Name:</label>\r\n" + 
-			"                <input name=\"lastname\" id=\"lastname\" type=\"text\" required>\r\n" + 
-			"                <div for=\"lastname\" id=\"lastnameerror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- Phone -->\r\n" + 
-			"                <label for=\"phone\">Phone Number:</label>\r\n" + 
-			"                <input name=\"phone\" id=\"phone\" type=\"text\" pattern=\"[1-9]{1}\\d{9}\" required>\r\n" + 
-			"                <span class=\"helptext\">10 digit U.S. phone number; numbers only</span>\r\n" + 
-			"                <div for=\"phone\" id=\"phoneerror\" class=\"errormessage\"></div>\r\n" + 
-			"\r\n" + 
-			"                <h2>Shipping</h2>\r\n" + 
-			"                <!-- Street address -->\r\n" + 
-			"                <label for=\"address1\">Address 1:</label>\r\n" + 
-			"                <input name=\"address1\" id=\"address1\" type=\"text\" required>\r\n" + 
-			"                <div for=\"address1\" id=\"address1error\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <label for=\"address2\">Address 2:</label>\r\n" + 
-			"                <input name=\"address2\" id=\"address2\" type=\"text\">\r\n" + 
-			"                <span class=\"helptext\">(Optional) Apartment number, floor, etc</span>\r\n" + 
-			"                <div for=\"address2\" id=\"address2error\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- Zip -->\r\n" + 
-			"                <label for=\"zip\">Zip:</label>\r\n" + 
-			"                <input name=\"zip\" id=\"zip\" onblur=\"getZipCode(this.value);getCityState(this.value)\"\r\n" + 
-			"                type=\"text\" pattern=\"[0-9]{5}\" required>\r\n" + 
-			"                <span class=\"helptext\">Numbers only</span>\r\n" + 
-			"                <div for=\"zip\" id=\"ziperror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- City -->\r\n" + 
-			"                <label for=\"city\">City:</label>\r\n" + 
-			"                <input name=\"city\" id=\"city\" type=\"text\" required>\r\n" + 
-			"                <div for=\"city\" id=\"cityerror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- State -->\r\n" + 
-			"                <label for=\"state\">State:</label>\r\n" + 
-			"                <input name=\"state\" id=\"state\" type=\"text\" required>\r\n" + 
-			"                <div for=\"state\" id=\"stateerror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>");
+		// If form was submitted, then there are errors
+		if (errorMessages.formSubmitted) {
+		
+			// First name
+			out.println("					<label for=\"firstname\">First Name: </label>");
+			out.println("                	<input name=\"firstname\" id=\"firstname\" type=\"text\" required value=\"" + req.getParameter("firstName") + "\">"); 
+			out.println("					<div for=\"firstname\" id=\"firstnameerror\" class=\"errormessage\">" + errorMessages.firstName + "</div>"); 
+			out.println("					<br>"); 
+	
+			// Last name
+			out.println("					<label for=\"lastname\">Last Name:</label>"); 
+			out.println("					<input name=\"lastname\" id=\"lastname\" type=\"text\" required>"); 
+			out.println("					<div for=\"lastname\" id=\"lastnameerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
 			
-			double shippingCost = 0;
+			// Phone number
+			out.println("         	        <label for=\"phone\">Phone Number:</label>"); 
+			out.println("              		<input name=\"phone\" id=\"phone\" type=\"text\" pattern=\"[1-9]{1}\\d{9}\" required>"); 
+			out.println("                	<span class=\"helptext\">10 digit U.S. phone number; numbers only</span>"); 
+			out.println("              		<div for=\"phone\" id=\"phoneerror\" class=\"errormessage\"></div>");
+			
+			
+			out.println("                	<h2>Shipping</h2>"); 
+			
+			// Address 1
+			out.println("                	<label for=\"address1\">Address 1:</label>"); 
+			out.println("                   <input name=\"address1\" id=\"address1\" type=\"text\" required>"); 
+			out.println("                   <div for=\"address1\" id=\"address1error\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+			
+			// Address 2
+			out.println("                	<label for=\"address2\">Address 2:</label>"); 
+			out.println("                   <input name=\"address2\" id=\"address2\" type=\"text\">"); 
+			out.println("                   <span class=\"helptext\">(Optional) Apartment number, floor, etc</span>"); 
+			out.println("                   <div for=\"address2\" id=\"address2error\" class=\"errormessage\"></div>"); 
+			out.println("                   <br>");
+	
+			// Zip
+			out.println("                   <label for=\"zip\">Zip:</label>"); 
+			out.println("                	<input name=\"zip\" id=\"zip\" onblur=\"getZipCode(this.value);getCityState(this.value)\" type=\"text\" pattern=\"[0-9]{5}\" required>"); 
+			out.println("                   <span class=\"helptext\">Numbers only</span>"); 
+			out.println("                   <div for=\"zip\" id=\"ziperror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+	
+			// City
+			out.println("               	<label for=\"city\">City:</label>"); 
+			out.println("                   <input name=\"city\" id=\"city\" type=\"text\" required>"); 
+			out.println("                   <div for=\"city\" id=\"cityerror\" class=\"errormessage\"></div>"); 
+			out.println("         		    <br>"); 
+	
+			// State
+			out.println("                	<label for=\"state\">State:</label>"); 
+			out.println("                	<input name=\"state\" id=\"state\" type=\"text\" required>"); 
+			out.println("                	<div for=\"state\" id=\"stateerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
+			
+			// Displays shipping method
+			shippingCost = 0;
 			out.println("<label class=\"orderconflabel\">Shipping Method: </label>");
 			if (shippingMethod.compareTo("ground") == 0) {
 				out.println("<span>6-Days Ground   $0.00</span>");
@@ -135,67 +152,205 @@ public class CheckOut extends HttpServlet {
 				shippingCost = 17.50;
 			}
 			
-			out.println("                <h2>Billing</h2>\r\n" + 
-			"                <!-- Credit card type -->\r\n" + 
-			"                <label for=\"cardtype\">Card Type:</label>\r\n" + 
-			"                <select name=\"cardtype\" id=\"cardtype\" required>\r\n" + 
-			"                    <option value=\"\" selected=\"selected\"></option>\r\n" + 
-			"                    <option value=\"Discover\">Discover</option>\r\n" + 
-			"                    <option value=\"Mastercard\">Mastercard</option>\r\n" + 
-			"                    <option value=\"Visa\">Visa</option>\r\n" + 
-			"                </select>\r\n" + 
-			"                <div for=\"cardtype\" id=\"cardtypeerror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- Credit card number -->\r\n" + 
-			"                <label for=\"cardnumber\">Card Number:</label>\r\n" + 
-			"                <input name=\"cardnumber\" id=\"cardnumber\" type=\"text\" pattern=\"[0-9]{16}\" required>\r\n" + 
-			"                <span class=\"helptext\">Numbers only</span>\r\n" + 
-			"                <div for=\"cardnumber\" id=\"cardnumbererror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>\r\n" + 
-			"\r\n" + 
-			"                <!-- Expiration month and year -->\r\n" + 
-			"                <label id=\"expiration\">Expiration:</label>\r\n" + 
-			"                <select name=\"expmonth\" id=\"expmonth\" required>\r\n" + 
-			"                    <option value=\"\" selected=\"selected\"></option>\r\n" + 
-			"                    <option value=\"1\">January</option>\r\n" + 
-			"                    <option value=\"2\">February</option>\r\n" + 
-			"                    <option value=\"3\">March</option>\r\n" + 
-			"                    <option value=\"4\">April</option>\r\n" + 
-			"                    <option value=\"5\">May</option>\r\n" + 
-			"                    <option value=\"6\">June</option>\r\n" + 
-			"                    <option value=\"7\">July</option>\r\n" + 
-			"                    <option value=\"8\">August</option>\r\n" + 
-			"                    <option value=\"9\">September</option>\r\n" + 
-			"                    <option value=\"10\">October</option>\r\n" + 
-			"                    <option value=\"11\">November</option>\r\n" + 
-			"                    <option value=\"12\">December</option>\r\n" + 
-			"                </select>\r\n" + 
-			"                <select name=\"expyear\" id=\"expyear\" required>\r\n" + 
-			"                    <option value=\"\" selected=\"selected\"></option>\r\n" + 
-			"                    <option value=\"2020\">2020</option>\r\n" + 
-			"                    <option value=\"2021\">2021</option>\r\n" + 
-			"                    <option value=\"2022\">2022</option>\r\n" + 
-			"                    <option value=\"2023\">2023</option>\r\n" + 
-			"                    <option value=\"2024\">2024</option>\r\n" + 
-			"                    <option value=\"2025\">2025</option>\r\n" + 
-			"                    <option value=\"2026\">2026</option>\r\n" + 
-			"                    <option value=\"2027\">2027</option>\r\n" + 
-			"                    <option value=\"2028\">2028</option>\r\n" + 
-			"                    <option value=\"2029\">2029</option>\r\n" + 
-			"                    <option value=\"2030\">2030</option>\r\n" + 
-			"                    <option value=\"2031\">2031</option>\r\n" + 
-			"                </select>\r\n" + 
-			"                <br>\r\n" + 
-			"                <div for=\"expiration\" id=\"experror\" class=\"errormessage\"></div>\r\n" + 
-			"\r\n" + 
-			"                <!-- CVV -->\r\n" + 
-			"                <label>CVV:</label>\r\n" + 
-			"                <input name=\"cvv\" id=\"cvv\" pattern=\"[0-9]{3}\" required>\r\n" + 
-			"                <br>\r\n" + 
-			"                <div for=\"cvv\" id=\"cvverror\" class=\"errormessage\"></div>\r\n" + 
-			"                <br>");
 			
+			
+			out.println("                	<h2>Billing</h2>"); 
+		
+			// Card type
+			out.println("    				<label for=\"cardtype\">Card Type:</label>"); 
+			out.println("                	<select name=\"cardtype\" id=\"cardtype\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                   	<option value=\"Discover\">Discover</option>"); 
+			out.println("                   	<option value=\"Mastercard\">Mastercard</option>"); 
+			out.println("                   	<option value=\"Visa\">Visa</option>"); 
+			out.println("         	        </select>"); 
+			out.println("                	<div for=\"cardtype\" id=\"cardtypeerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+
+			// Credit card number
+			out.println("                	<label for=\"cardnumber\">Card Number:</label>"); 
+			out.println("                	<input name=\"cardnumber\" id=\"cardnumber\" type=\"text\" pattern=\"[0-9]{16}\" required>"); 
+			out.println("             		<span class=\"helptext\">Numbers only</span>"); 
+			out.println("        	        <div for=\"cardnumber\" id=\"cardnumbererror\" class=\"errormessage\"></div>"); 
+			out.println("          		    <br>"); 
+
+			// Expiration month and year
+			out.println("	                <label id=\"expiration\">Expiration:</label>"); 
+			out.println("                	<select name=\"expmonth\" id=\"expmonth\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                    	<option value=\"1\">January</option>"); 
+			out.println("               	    <option value=\"2\">February</option>"); 
+			out.println("                    	<option value=\"3\">March</option>"); 
+			out.println("                  		<option value=\"4\">April</option>"); 
+			out.println("                    	<option value=\"5\">May</option>"); 
+			out.println("                    	<option value=\"6\">June</option>"); 
+			out.println("            	        <option value=\"7\">July</option>"); 
+			out.println("               	    <option value=\"8\">August</option>"); 
+			out.println("                  		<option value=\"9\">September</option>"); 
+			out.println("             		    <option value=\"10\">October</option>"); 
+			out.println("               	    <option value=\"11\">November</option>"); 
+			out.println("                       <option value=\"12\">December</option>"); 
+			out.println("                	</select>"); 
+			out.println("                	<select name=\"expyear\" id=\"expyear\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                    	<option value=\"2020\">2020</option>"); 
+			out.println("                    	<option value=\"2021\">2021</option>"); 
+			out.println("	                    <option value=\"2022\">2022</option>"); 
+			out.println("               	    <option value=\"2023\">2023</option>"); 
+			out.println("           	        <option value=\"2024\">2024</option>"); 
+			out.println("                    	<option value=\"2025\">2025</option>"); 
+			out.println("           	        <option value=\"2026\">2026</option>"); 
+			out.println("     	                <option value=\"2027\">2027</option>"); 
+			out.println("          		        <option value=\"2028\">2028</option>"); 
+			out.println("                    	<option value=\"2029\">2029</option>"); 
+			out.println("                    	<option value=\"2030\">2030</option>"); 
+			out.println("                   	<option value=\"2031\">2031</option>"); 
+			out.println("                	</select>"); 
+			out.println("                	<br>"); 
+			out.println("                	<div for=\"expiration\" id=\"experror\" class=\"errormessage\"></div>"); 
+
+			// CVV
+			out.println("	                <label>CVV:</label>"); 
+			out.println("                	<input name=\"cvv\" id=\"cvv\" pattern=\"[0-9]{3}\" required>"); 
+			out.println("                	<br>"); 
+			out.println("               	<div for=\"cvv\" id=\"cvverror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
+		}
+		else {
+			
+			// First name
+			out.println("					<label for=\"firstname\">First Name: </label>");
+			out.println("                	<input name=\"firstname\" id=\"firstname\" type=\"text\" required>"); 
+			out.println("					<div for=\"firstname\" id=\"firstnameerror\" class=\"errormessage\">" + errorMessages.firstName + "</div>"); 
+			out.println("					<br>"); 
+	
+			// Last name
+			out.println("					<label for=\"lastname\">Last Name:</label>"); 
+			out.println("					<input name=\"lastname\" id=\"lastname\" type=\"text\" required>"); 
+			out.println("					<div for=\"lastname\" id=\"lastnameerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
+			
+			// Phone number
+			out.println("         	        <label for=\"phone\">Phone Number:</label>"); 
+			out.println("              		<input name=\"phone\" id=\"phone\" type=\"text\" pattern=\"[1-9]{1}\\d{9}\" required>"); 
+			out.println("                	<span class=\"helptext\">10 digit U.S. phone number; numbers only</span>"); 
+			out.println("              		<div for=\"phone\" id=\"phoneerror\" class=\"errormessage\"></div>");
+			
+			
+			out.println("                	<h2>Shipping</h2>"); 
+			
+			// Address 1
+			out.println("                	<label for=\"address1\">Address 1:</label>"); 
+			out.println("                   <input name=\"address1\" id=\"address1\" type=\"text\" required>"); 
+			out.println("                   <div for=\"address1\" id=\"address1error\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+			
+			// Address 2
+			out.println("                	<label for=\"address2\">Address 2:</label>"); 
+			out.println("                   <input name=\"address2\" id=\"address2\" type=\"text\">"); 
+			out.println("                   <span class=\"helptext\">(Optional) Apartment number, floor, etc</span>"); 
+			out.println("                   <div for=\"address2\" id=\"address2error\" class=\"errormessage\"></div>"); 
+			out.println("                   <br>");
+	
+			// Zip
+			out.println("                   <label for=\"zip\">Zip:</label>"); 
+			out.println("                	<input name=\"zip\" id=\"zip\" onblur=\"getZipCode(this.value);getCityState(this.value)\" type=\"text\" pattern=\"[0-9]{5}\" required>"); 
+			out.println("                   <span class=\"helptext\">Numbers only</span>"); 
+			out.println("                   <div for=\"zip\" id=\"ziperror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+	
+			// City
+			out.println("               	<label for=\"city\">City:</label>"); 
+			out.println("                   <input name=\"city\" id=\"city\" type=\"text\" required>"); 
+			out.println("                   <div for=\"city\" id=\"cityerror\" class=\"errormessage\"></div>"); 
+			out.println("         		    <br>"); 
+	
+			// State
+			out.println("                	<label for=\"state\">State:</label>"); 
+			out.println("                	<input name=\"state\" id=\"state\" type=\"text\" required>"); 
+			out.println("                	<div for=\"state\" id=\"stateerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
+			
+			// Displays shipping method
+			shippingCost = 0;
+			out.println("<label class=\"orderconflabel\">Shipping Method: </label>");
+			if (shippingMethod.compareTo("ground") == 0) {
+				out.println("<span>6-Days Ground   $0.00</span>");
+				shippingCost = 0;
+			}
+			else if (shippingMethod.compareTo("expedited") == 0) {
+				out.println("<span>2-Days Expedited   $10.99</span>");
+				shippingCost = 10.99;
+			}
+			else if (shippingMethod.compareTo("overnight") == 0) {
+				out.println("<span>Overnight   $17.50</span>");
+				shippingCost = 17.50;
+			}
+			
+			
+			
+			out.println("                	<h2>Billing</h2>"); 
+		
+			// Card type
+			out.println("    				<label for=\"cardtype\">Card Type:</label>"); 
+			out.println("                	<select name=\"cardtype\" id=\"cardtype\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                   	<option value=\"Discover\">Discover</option>"); 
+			out.println("                   	<option value=\"Mastercard\">Mastercard</option>"); 
+			out.println("                   	<option value=\"Visa\">Visa</option>"); 
+			out.println("         	        </select>"); 
+			out.println("                	<div for=\"cardtype\" id=\"cardtypeerror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>"); 
+
+			// Credit card number
+			out.println("                	<label for=\"cardnumber\">Card Number:</label>"); 
+			out.println("                	<input name=\"cardnumber\" id=\"cardnumber\" type=\"text\" pattern=\"[0-9]{16}\" required>"); 
+			out.println("             		<span class=\"helptext\">Numbers only</span>"); 
+			out.println("        	        <div for=\"cardnumber\" id=\"cardnumbererror\" class=\"errormessage\"></div>"); 
+			out.println("          		    <br>"); 
+
+			// Expiration month and year
+			out.println("	                <label id=\"expiration\">Expiration:</label>"); 
+			out.println("                	<select name=\"expmonth\" id=\"expmonth\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                    	<option value=\"1\">January</option>"); 
+			out.println("               	    <option value=\"2\">February</option>"); 
+			out.println("                    	<option value=\"3\">March</option>"); 
+			out.println("                  		<option value=\"4\">April</option>"); 
+			out.println("                    	<option value=\"5\">May</option>"); 
+			out.println("                    	<option value=\"6\">June</option>"); 
+			out.println("            	        <option value=\"7\">July</option>"); 
+			out.println("               	    <option value=\"8\">August</option>"); 
+			out.println("                  		<option value=\"9\">September</option>"); 
+			out.println("             		    <option value=\"10\">October</option>"); 
+			out.println("               	    <option value=\"11\">November</option>"); 
+			out.println("                       <option value=\"12\">December</option>"); 
+			out.println("                	</select>"); 
+			out.println("                	<select name=\"expyear\" id=\"expyear\" required>"); 
+			out.println("                   	<option value=\"\" selected=\"selected\"></option>"); 
+			out.println("                    	<option value=\"2020\">2020</option>"); 
+			out.println("                    	<option value=\"2021\">2021</option>"); 
+			out.println("	                    <option value=\"2022\">2022</option>"); 
+			out.println("               	    <option value=\"2023\">2023</option>"); 
+			out.println("           	        <option value=\"2024\">2024</option>"); 
+			out.println("                    	<option value=\"2025\">2025</option>"); 
+			out.println("           	        <option value=\"2026\">2026</option>"); 
+			out.println("     	                <option value=\"2027\">2027</option>"); 
+			out.println("          		        <option value=\"2028\">2028</option>"); 
+			out.println("                    	<option value=\"2029\">2029</option>"); 
+			out.println("                    	<option value=\"2030\">2030</option>"); 
+			out.println("                   	<option value=\"2031\">2031</option>"); 
+			out.println("                	</select>"); 
+			out.println("                	<br>"); 
+			out.println("                	<div for=\"expiration\" id=\"experror\" class=\"errormessage\"></div>"); 
+
+			// CVV
+			out.println("	                <label>CVV:</label>"); 
+			out.println("                	<input name=\"cvv\" id=\"cvv\" pattern=\"[0-9]{3}\" required>"); 
+			out.println("                	<br>"); 
+			out.println("               	<div for=\"cvv\" id=\"cvverror\" class=\"errormessage\"></div>"); 
+			out.println("                	<br>");
+		}
 		
 			
 		

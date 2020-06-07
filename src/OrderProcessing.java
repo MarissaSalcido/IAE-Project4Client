@@ -12,6 +12,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,74 +39,84 @@ public class OrderProcessing extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {	
-	
-		ClientConfig config = new ClientConfig();
-
-        Client client = ClientBuilder.newClient(config);
-
-        WebTarget target = client.target(getBaseURI()).path("tomerest").path("order");
-        
-        ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library	
+		if (!formValid(req, res)) {
+			PrintWriter out = res.getWriter();
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('" + ((String) req.getAttribute("errorMessagesString")) + "');");
+			out.println("</script>");
 			
-		HttpSession currentSession = req.getSession(true);
-		Order order = new Order();
-        
-        order.setFirstName(req.getParameter("firstname"));
-        order.setLastName(req.getParameter("lastname"));
-        order.setPhoneNum(req.getParameter("phone"));
-        order.setAddress1(req.getParameter("address1"));
-        order.setAddress2(req.getParameter("address2"));
-        order.setCity(req.getParameter("city"));
-        order.setState(req.getParameter("state"));
-        order.setZipcode(req.getParameter("zip"));
-        order.setShippingMethod((String) currentSession.getAttribute("shippingMethod"));
-        order.setCardType(req.getParameter("cardtype"));
-        order.setCardNumber(req.getParameter("cardnumber"));
-        order.setExpMonth(req.getParameter("expmonth"));
-        order.setExpYear(req.getParameter("expyear"));
-        order.setCvv(req.getParameter("cvv"));
-                
-		Double subtotal = (Double) currentSession.getAttribute("subtotal");
-		order.setSubtotal(subtotal.doubleValue());
-		        
-		Double tax = (Double) currentSession.getAttribute("tax");
-        order.setTax(tax.doubleValue());
-        Double shippingCost = (Double) currentSession.getAttribute("shippingCost");
-        order.setShippingCost(shippingCost.doubleValue());
-        Double total = (Double) currentSession.getAttribute("total");
-        order.setTotal(total.doubleValue());
-        
-        @SuppressWarnings("unchecked")
-		Vector<Item> sessionCart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
-        List<OrderItem> shoppingCart = new ArrayList<OrderItem>();
-        OrderItem orderItem;
-        
-        for (int i = 0; i < sessionCart.size(); ++i) {
-        	orderItem = new OrderItem();
-        	orderItem.setProductId(sessionCart.elementAt(i).id);
-        	orderItem.setImageSrc(sessionCart.elementAt(i).imageSrc);
-        	orderItem.setItemName(sessionCart.elementAt(i).item);
-        	orderItem.setPrice(sessionCart.elementAt(i).price);
-        	orderItem.setQuantity(sessionCart.elementAt(i).quantity);
-        	shoppingCart.add(orderItem);
-        }
-        
-        order.setOrderItems(shoppingCart);
-					       
-        String jsonStr = objectMapper.writeValueAsString(order);
-        System.out.println("jsonStr: " + jsonStr);
-        Entity<String> jsonEntity = Entity.json(jsonStr);
-        
-        String jsonResponse = target.request(). //send a request
-				        		accept(MediaType.APPLICATION_JSON). //specify the media type of the response
-                				method("POST", jsonEntity, String.class);        
-        
-        System.out.println("jsonResponse: " + jsonResponse);
-                       
-        currentSession.setAttribute("jsonResponse", jsonResponse);
-        
-		RequestDispatcher rd = req.getRequestDispatcher("OrderConf");
-		rd.forward(req, res);       
+			RequestDispatcher rd = req.getRequestDispatcher("catalog");
+			rd.forward(req, res);
+		}
+		else {
+			ClientConfig config = new ClientConfig();
+	
+	        Client client = ClientBuilder.newClient(config);
+	
+	        WebTarget target = client.target(getBaseURI()).path("tomerest").path("order");
+	        
+	        ObjectMapper objectMapper = new ObjectMapper(); // This object is from the jackson library	
+				
+			HttpSession currentSession = req.getSession(true);
+			Order order = new Order();
+	        
+	        order.setFirstName(req.getParameter("firstname"));
+	        order.setLastName(req.getParameter("lastname"));
+	        order.setPhoneNum(req.getParameter("phone"));
+	        order.setAddress1(req.getParameter("address1"));
+	        order.setAddress2(req.getParameter("address2"));
+	        order.setCity(req.getParameter("city"));
+	        order.setState(req.getParameter("state"));
+	        order.setZipcode(req.getParameter("zip"));
+	        order.setShippingMethod((String) currentSession.getAttribute("shippingMethod"));
+	        order.setCardType(req.getParameter("cardtype"));
+	        order.setCardNumber(req.getParameter("cardnumber"));
+	        order.setExpMonth(req.getParameter("expmonth"));
+	        order.setExpYear(req.getParameter("expyear"));
+	        order.setCvv(req.getParameter("cvv"));
+	                
+			Double subtotal = (Double) currentSession.getAttribute("subtotal");
+			order.setSubtotal(subtotal.doubleValue());
+			        
+			Double tax = (Double) currentSession.getAttribute("tax");
+	        order.setTax(tax.doubleValue());
+	        Double shippingCost = (Double) currentSession.getAttribute("shippingCost");
+	        order.setShippingCost(shippingCost.doubleValue());
+	        Double total = (Double) currentSession.getAttribute("total");
+	        order.setTotal(total.doubleValue());
+	        
+	        @SuppressWarnings("unchecked")
+			Vector<Item> sessionCart = (Vector<Item>) currentSession.getAttribute("shoppingCart");
+	        List<OrderItem> shoppingCart = new ArrayList<OrderItem>();
+	        OrderItem orderItem;
+	        
+	        for (int i = 0; i < sessionCart.size(); ++i) {
+	        	orderItem = new OrderItem();
+	        	orderItem.setProductId(sessionCart.elementAt(i).id);
+	        	orderItem.setImageSrc(sessionCart.elementAt(i).imageSrc);
+	        	orderItem.setItemName(sessionCart.elementAt(i).item);
+	        	orderItem.setPrice(sessionCart.elementAt(i).price);
+	        	orderItem.setQuantity(sessionCart.elementAt(i).quantity);
+	        	shoppingCart.add(orderItem);
+	        }
+	        
+	        order.setOrderItems(shoppingCart);
+						       
+	        String jsonStr = objectMapper.writeValueAsString(order);
+	        System.out.println("jsonStr: " + jsonStr);
+	        Entity<String> jsonEntity = Entity.json(jsonStr);
+	        
+	        String jsonResponse = target.request(). //send a request
+					        		accept(MediaType.APPLICATION_JSON). //specify the media type of the response
+	                				method("POST", jsonEntity, String.class);        
+	        
+	        System.out.println("jsonResponse: " + jsonResponse);
+	                       
+	        currentSession.setAttribute("jsonResponse", jsonResponse);
+	        
+			RequestDispatcher rd = req.getRequestDispatcher("OrderConf");
+			rd.forward(req, res); 
+		}
 	}
 
     private static URI getBaseURI() {
@@ -114,5 +125,31 @@ public class OrderProcessing extends HttpServlet {
         return UriBuilder.fromUri(RestUri.URI).build();
     }
 
-
+    private boolean formValid(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    	FormErrors errorMessages = new FormErrors();
+    	String errorMessagesStr = "Fix the following errors: \n";
+    	HttpSession currentSession = req.getSession(true);
+    	    	
+    	if (req.getParameter("firstname").isEmpty()) {
+    		errorMessages.firstName = "Enter a first name.";
+    		errorMessagesStr += "~" + errorMessages.firstName + "\n";
+    	}
+        // order.setLastName(req.getParameter("lastname"));
+       //  order.setPhoneNum(req.getParameter("phone"));
+       //  order.setAddress1(req.getParameter("address1"));
+       //  order.setAddress2(req.getParameter("address2"));
+       //  order.setCity(req.getParameter("city"));
+      //   order.setState(req.getParameter("state"));
+      //   order.setZipcode(req.getParameter("zip"));
+     //    order.setShippingMethod((String) currentSession.getAttribute("shippingMethod"));
+     //    order.setCardType(req.getParameter("cardtype"));
+    //     order.setCardNumber(req.getParameter("cardnumber"));
+   //      order.setExpMonth(req.getParameter("expmonth"));
+   //      order.setExpYear(req.getParameter("expyear"));
+  //       order.setCvv(req.getParameter("cvv"));
+    	
+    	currentSession.setAttribute("errorMessagesStr", errorMessagesStr);
+    	currentSession.setAttribute("errorMessages", errorMessages);
+    	return false;
+    }
 }
