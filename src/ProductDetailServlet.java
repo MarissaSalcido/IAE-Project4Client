@@ -114,7 +114,27 @@ public class ProductDetailServlet extends HttpServlet{
 				else {
 					history = new Vector<Item>();
 				}
+				
+				
+				// Checks to see if the item already exists in history
+				// If it does exist, it removes it
+				for (int i = 0; i < history.size(); ++i) {
+					if (history.elementAt(i).id.equals(productID)) {
+						history.remove(i);
+						
+						// Setting i to size of vector to get out of loop
+						i = history.size();
+					}
+				}
+				
+				// Add the current item to the end of the vector
 				history.add(new Item(productID, imgpath, name, Double.parseDouble(price)));
+				
+				// Removes oldest element if size is greater than 5
+				while (history.size() > 5) {
+					history.remove(0);
+				}
+				
 				currentSession.setAttribute("history", history);
 			}
 			

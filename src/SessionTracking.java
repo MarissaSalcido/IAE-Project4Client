@@ -31,17 +31,17 @@ public class SessionTracking extends HttpServlet {
 		if ((history == null) || history.isEmpty()) {
 			out.println("<h3 class='history'>None</h3></body></html>");
 		}
-		else {
-			
-			//Remove duplicates
-			Set<Item> hashSet = new HashSet<Item>(history);
-			history.clear();
-			history.addAll(hashSet);
-			//Duplicates removed
-			
+		else {		
 			out.println("          <table class='history'>\r\n" + 
-			"                    <tr>"); 
-			for (int i = history.size() - 1; i >= history.size() - 5; --i) {
+			"                    <tr>");
+			
+			// Removes item at beginning of vector if history is bigger than 5
+			while (history.size() > 5) {
+				history.remove(0);
+			}
+			
+			// Displays the item from most recent viewed to least recent viewed
+			for (int i = history.size() - 1; i >= 0; --i) {
 				out.println("       <td><img src=\"" + history.elementAt(i).imageSrc + "\" alt=\"" + history.elementAt(i).item + "\" width=\"80\" height=\"100\"></td>\r\n"); 
 			}
 			out.println("			</tr>");
