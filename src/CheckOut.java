@@ -33,26 +33,28 @@ public class CheckOut extends HttpServlet {
 		
 		res.setContentType("text/html; charset='UTF-8'");
 		PrintWriter out = res.getWriter();
-		out.println("<!DOCTYPE html>"); 
-		out.println("<html lang=\"en\">"); 
-		out.println("	<head>"); 
-		out.println("       <title>Check Out</title>"); 
-		out.println("       <meta name=\"description\" content=\"Check Out\">"); 
-		out.println("       <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">"); 
-		out.println("       <link rel=\"stylesheet\" type=\"text/css\" href=\"css/ordering.css\">"); 
-		out.println("		<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>"); 
-		out.println("   </head>"); 
-		out.println("	<body>"); 
-		out.println("		<div class = \"container\">"); 
-		out.println("       	<div class=\"menu noTextDecoration\">"); 
-		out.println("           	<ul>"); 	
-		out.println("               	<li class =\"logo\"> <a href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>"); 
-		out.println("                	<li class =\"title\"> <a href=\"../index.html\"> Tome </a> </li>"); 
-		out.println("               	<li> <a href=\"../index.html\"> Home </a> </li>");
-		out.println("               	<li> <a href=\"html/aboutus.html\"> About Us </a> </li>");
-		out.println("               	<li> <a href=\"catalog\"> Catalog </a> </li>"); 
-		out.println("               	<li> <a href=\"Cart\"> Cart </a> </li>" + 
-		out.println("            </ul>\r\n" + 
+		out.println("<!DOCTYPE html>\r\n" + 
+				"<html lang=\"en\">\r\n" + 
+				"    <head>\r\n" + 
+				"        <title>Check Out</title>\r\n" + 
+				"        <meta name=\"description\" content=\"Check Out\">\r\n" + 
+				"        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">\r\n" + 
+				"        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/ordering.css\">\r\n" + 
+				"        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\r\n" + 
+				"        <script type = \"text/javascript\" src=\"js/orderingAjax.js\"></script>\r\n" + 
+				"        <script type=\"text/javascript\" src=\"js/orderFormValidation.js\"></script>\r\n" + 
+				"    </head>\r\n"); 
+		out.println("    <body>\r\n" + 
+				"\r\n" + 
+				"	<div class = \"container\">\r\n" + 
+				"        <div class=\"menu noTextDecoration\">\r\n" + 
+				"            <ul>\r\n" + 	
+				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
+				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"index.html\">Tome</a></li>\r\n" + 
+					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
+					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
+					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
+				"                    <li><a href=\"Cart\">Cart</a></li>" +				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
 				
