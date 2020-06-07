@@ -37,15 +37,11 @@ public class OrderProcessing extends HttpServlet {
         super();
     }
 
-
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {	
+    @Override
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {	
 		if (!formValid(req, res)) {
-			PrintWriter out = res.getWriter();
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('" + ((String) req.getAttribute("errorMessagesString")) + "');");
-			out.println("</script>");
-			
-			RequestDispatcher rd = req.getRequestDispatcher("catalog");
+			PrintWriter out = res.getWriter();			
+			RequestDispatcher rd = req.getRequestDispatcher("CheckOut");
 			rd.forward(req, res);
 		}
 		else {

@@ -22,19 +22,20 @@ public class CheckOut extends HttpServlet {
         super();
     }
 
-
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    @Override
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		processRequest(req, res);
 	}
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    @Override
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		processRequest(req, res);
 	}
 	
-	protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	private void processRequest(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession currentSession = req.getSession(false);
 		double shippingCost;
-		
+				
 		String shippingMethod = req.getParameter("shippingmethod");
 		currentSession.setAttribute("shippingMethod", shippingMethod);
 				
@@ -83,6 +84,10 @@ public class CheckOut extends HttpServlet {
 		// If form was submitted, then there are errors
 		if (errorMessages.formSubmitted) {
 		
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('" + ((String) req.getAttribute("errorMessagesString")) + "');");
+			out.println("</script>");
+			
 			// First name
 			out.println("					<label for=\"firstname\">First Name: </label>");
 			out.println("                	<input name=\"firstname\" id=\"firstname\" type=\"text\" required value=\"" + req.getParameter("firstName") + "\">"); 
