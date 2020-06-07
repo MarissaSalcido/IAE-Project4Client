@@ -10,6 +10,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
@@ -96,16 +97,20 @@ public class OrderProcessing extends HttpServlet {
         System.out.println("jsonStr: " + jsonStr);
         Entity<String> jsonEntity = Entity.json(jsonStr);
         
-        String jsonResponse = target.request(). //send a request
+        Response orderResponse = target.request(). //send a request
 				        		accept(MediaType.APPLICATION_JSON). //specify the media type of the response
-                				method("POST", jsonEntity, String.class);        
+                				method("POST", jsonEntity); 
+               
+        currentSession.setAttribute("orderStatus", orderResponse.getStatus());
         
-        System.out.println("jsonResponse: " + jsonResponse);
-                       
-        currentSession.setAttribute("jsonResponse", jsonResponse);
-        
-		RequestDispatcher rd = req.getRequestDispatcher("OrderConf");
-		rd.forward(req, res);       
+        String jsonResponse = orderResponse.readEntity(String.class);
+    	
+    	System.out.println("jsonResponse: " + jsonResponse);
+                   
+    	currentSession.setAttribute("jsonResponse", jsonResponse);        
+    
+    	RequestDispatcher rd = req.getRequestDispatcher("OrderConf");
+    	rd.forward(req, res);
 	}
 
     private static URI getBaseURI() {
