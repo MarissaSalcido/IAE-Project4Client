@@ -1,15 +1,8 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-import models.Book;
 import models.Order;
 import models.OrderItem;;
 
@@ -63,12 +55,12 @@ public class OrderConf extends HttpServlet {
 				"	<div class = \"container\">\r\n" + 
 				"        <div class=\"menu notTextDecoration\">\r\n" + 
 				"            <ul>\r\n" + 	
-				"                <li class =\"logo\"> <a href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
-				"                <li class =\"title\"> <a href=\"../index.html\">Tome</a> </li>\r\n" + 
-				"                <li> <a href=\"../index.html\"> Home </a> </li>\r\n" +
-				"                <li><a href=\"html/aboutus.html\">About Us</a></li>\r\n" +
-				"                <li> <a href=\"catalog\"> Catalog </a> </li>\r\n" + 
-				"                <li><a href=\"Cart\">Cart</a></li>" + 
+				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
+				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"index.html\">Tome</a></li>\r\n" + 
+					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
+					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
+					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
+				"                    <li><a href=\"Cart\">Cart</a></li>" +
 				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +

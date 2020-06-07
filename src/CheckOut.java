@@ -49,13 +49,12 @@ public class CheckOut extends HttpServlet {
 				"	<div class = \"container\">\r\n" + 
 				"        <div class=\"menu noTextDecoration\">\r\n" + 
 				"            <ul>\r\n" + 	
-				"                <li class =\"logo\"> <a href=\"../index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
-				"                <li class =\"title\"> <a href=\"../index.html\">Tome</a> </li>\r\n" + 
-				"                <li> <a href=\"../index.html\"> Home </a> </li>\r\n" +
-				"                <li><a href=\"html/aboutus.html\">About Us</a></li>\r\n" +
-				"                <li> <a href=\"catalog\"> Catalog </a> </li>\r\n" + 
-				"                <li><a href=\"Cart\">Cart</a></li>" + 
-				"            </ul>\r\n" + 
+				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
+				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"index.html\">Tome</a></li>\r\n" + 
+					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
+					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
+					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
+				"                    <li><a href=\"Cart\">Cart</a></li>" +				"            </ul>\r\n" + 
 				"        </div>\r\n" + 
 				"    </div>\r\n" +
 				

@@ -2,8 +2,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -27,12 +25,7 @@ public class Cart extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession currentSession = req.getSession(true);
-		Vector<Item> tempCart = new Vector<Item>();
-		tempCart.add(new Item("INF5678", "images/1945.jpg", "COUNTDOWN 1945", 15.30, 1));
-		tempCart.add(new Item("INF1234", "images/a_stroke_of_malice.jpg", "A STROKE OF MALICE", 15.30, 2));
-		
-		currentSession.setAttribute("shoppingCart", tempCart);
-				
+						
 		res.setContentType("text/html; charset='UTF-8'");
 		PrintWriter out = res.getWriter();
 		out.println("<!DOCTYPE html>\r\n" + 
@@ -52,7 +45,7 @@ public class Cart extends HttpServlet {
 					"            <ul>\r\n" + 	
 				"                    <li class =\"logo\"> <a style=\"text-decoration:none;\" href=\"index.html\"> <img src=\"images/book.png\"> </a> </li>\r\n" + 
 				"                    <li class =\"title\"><a style=\"text-decoration:none;\" href=\"index.html\">Tome</a></li>\r\n" + 
-					"                <li> <a href=\"../index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
+					"                <li> <a href=\"index.html\" style=\"text-decoration:none;\"> Home </a> </li>\r\n" +
 					"                <li><a style=\"text-decoration:none;\" href=\"html/aboutus.html\">About Us</a></li>\r\n" +
 					"                <li> <a style=\"text-decoration:none;\" href=\"catalog\"> Catalog </a> </li>\r\n" + 
 				"                    <li><a href=\"Cart\">Cart</a></li>" +
